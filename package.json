@@ -12,7 +12,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "build": "node build/build.js",
-    "deploy": "netlify deploy"
+    "deploy": "netlify deploy -t $NETLIFY_TOKEN"
   },
   "dependencies": {
     "vue": "^2.5.2",
