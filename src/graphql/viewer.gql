@@ -1,0 +1,23 @@
+query Viewer { 
+  viewer { 
+    login
+    avatarUrl
+    starredRepositories(first: 10) {
+      edges {
+        cursor
+        node {
+          name
+          url
+          description
+          descriptionHTML
+          labels(first: 10) {
+            nodes {
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}

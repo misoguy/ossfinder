@@ -1,3 +1,8 @@
-import Vue from 'vue'
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import fetch from 'unfetch';
 
-Vue.config.productionTip = false
+global.fetch = fetch;
+Vue.config.productionTip = false;
+
+Vue.use(Vuetify);
