@@ -23,7 +23,8 @@
     "graphql-tag": "^2.5.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuetify": "^0.17.0"
+    "vuetify": "^0.17.0",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -78,7 +79,9 @@
     "webpack-merge": "^4.1.0"
   },
   "jest": {
-    "testMatch": ["<rootDir>/test/unit/**/?(*.)(spec|test).js?(x)"],
+    "testMatch": [
+      "<rootDir>/test/unit/**/?(*.)(spec|test).js?(x)"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",

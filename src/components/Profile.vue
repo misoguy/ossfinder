@@ -14,24 +14,48 @@
     <v-container grid-list-md text-xs-center>
       <h2>Your Starred Repositories</h2>
       <v-layout row wrap>
-        <v-flex xs12 sm6 v-for="edge in user.starredRepositories.edges" :key="edge.cursor">
+        <v-flex xs12 sm6 v-for="repo in user.starredRepositories.edges" :key="repo.cursor">
           <v-card>
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">
-                  <a :href="edge.node.url" target="_blank">
-                    {{edge.node.name}}
+                  <a :href="repo.node.url" target="_blank">
+                    {{repo.node.nameWithOwner}}
                   </a>
                 </h3>
                 <!-- <div v-if="edge.node.description">{{edge.node.description}}</div> -->
-                <div v-html="edge.node.descriptionHTML"></div>
+                <div v-html="repo.node.descriptionHTML"></div>
               </div>
             </v-card-title>
             <v-card-actions>
               <v-layout row wrap>
-                  <v-btn flat color="green" v-for="node in edge.node.labels.nodes" :key="node.id">
-                    {{node.name}}
+                <template v-for="label in repo.node.labels.nodes">
+                  <v-btn
+                    v-if="watchList[repo.node.nameWithOwner] && watchList[repo.node.nameWithOwner][label.id]"
+                    color="green"
+                    :key="label.id"
+                    @click="toggleWatchRepoLabel({
+                      repoNameWithOwner: repo.node.nameWithOwner,
+                      labelId:label.id,
+                      labelName:label.name
+                    })"
+                  >
+                    {{label.name}}
                   </v-btn>
+                  <v-btn
+                    v-else
+                    flat
+                    color="green"
+                    :key="label.id"
+                    @click="toggleWatchRepoLabel({
+                      repoNameWithOwner: repo.node.nameWithOwner,
+                      labelId:label.id,
+                      labelName:label.name
+                    })"
+                  >
+                    {{label.name}}
+                  </v-btn>
+                </template>
               </v-layout>
             </v-card-actions>
           </v-card>
@@ -42,18 +66,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Profile',
   props: ['user'],
+  computed: {
+    watchList() {
+      return this.$store.getters.watchList;
+    },
+  },
   methods: {
     logout() {
-      localStorage.removeItem('token');
+      localStorage.clear();
       this.$router.push('/');
     },
+    ...mapActions(['toggleWatchRepoLabel']),
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

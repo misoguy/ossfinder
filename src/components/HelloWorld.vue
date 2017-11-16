@@ -19,16 +19,5 @@ export default {
       token: '',
     };
   },
-  methods: {
-    // login() {
-    //   localStorage.setItem('token', this.token);
-    //   client.query({ query: Viewer }).then(console.log).catch(console.log);
-    //   this.$router.push('profile');
-    // },
-  },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

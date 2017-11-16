@@ -1,5 +1,5 @@
 <template>
-  <v-app @click.stop="drawer = !drawer" class="hello">
+  <v-app class="hello">
     <v-navigation-drawer app fixed v-model="drawer" width="200">
       <router-link to="profile"><button @click="closeDrawer">Profile</button></router-link>
     </v-navigation-drawer>
@@ -25,7 +25,7 @@
 
 <script>
   import client from './apolloClient';
-  import Viewer from './graphql/viewer.gql';
+  import Viewer from './graphql/Viewer.gql';
 
   export default {
     created() {

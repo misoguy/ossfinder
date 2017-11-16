@@ -1,0 +1,13 @@
+#import "./LabelFragment.gql"
+
+fragment issue on Issue {
+  title
+  labels(first: 10) {
+    nodes {
+      ...label
+    }
+  }
+  comments {
+    totalCount
+  }
+}

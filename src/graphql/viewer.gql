@@ -1,3 +1,5 @@
+#import "./RepositoryFragment.gql"
+
 query Viewer { 
   viewer { 
     login
@@ -6,16 +8,7 @@ query Viewer {
       edges {
         cursor
         node {
-          name
-          url
-          description
-          descriptionHTML
-          labels(first: 10) {
-            nodes {
-              id
-              name
-            }
-          }
+          ...repo
         }
       }
     }

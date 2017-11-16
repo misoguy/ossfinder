@@ -1,0 +1,15 @@
+#import "./RepositoryFragment.gql"
+#import "./IssueFragment.gql"
+
+query RepositoryIssues ($owner:String!, $name:String!, $labels:[String!]) {
+	repository(owner:$owner name:$name) {
+    ...repo
+		issues(labels:$labels first: 10 states: OPEN) {
+		  edges {
+		    node {
+		      ...issue
+		    }
+		  }
+		}    
+  }
+}
