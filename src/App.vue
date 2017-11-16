@@ -14,41 +14,29 @@
       </v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <router-view
-        v-bind:login="login"
-        v-bind:user="user"
-      />
+      <router-view />
     </v-content>
     <v-footer app></v-footer>
   </v-app>
 </template>
 
 <script>
-  import client from './apolloClient';
-  import Viewer from './graphql/Viewer.gql';
-
   export default {
+    name: 'App',
     created() {
       const token = localStorage.getItem('token');
       if (token) {
-        this.login(token);
+        this.$store.dispatch('login', token).then(() => {
+          this.$router.push('profile');
+        });
       }
     },
     data: () => ({
       drawer: false,
-      user: {},
     }),
     methods: {
       closeDrawer() {
         this.drawer = false;
-      },
-      login(token) {
-        localStorage.setItem('token', token);
-        return client.query({ query: Viewer }).then(
-          ({ data }) => {
-            this.user = data.viewer;
-            this.$router.push('profile');
-          });
       },
     },
   };

@@ -1,11 +1,11 @@
 <template>
-  <div v-if="user.login" class="profile">
+  <div v-if="me && me.login" class="profile">
     <v-container text-xs-center>
       <h1>
-        Hello {{user.login}}
+        Hello {{me.login}}
       </h1>
       <v-avatar size="100px">
-        <img :src="user.avatarUrl" alt="avatar">
+        <img :src="me.avatarUrl" alt="avatar">
       </v-avatar>
       <div>
         <v-btn @click="logout" flat>Logout</v-btn>
@@ -14,7 +14,7 @@
     <v-container grid-list-md text-xs-center>
       <h2>Your Starred Repositories</h2>
       <v-layout row wrap>
-        <v-flex xs12 sm6 v-for="repo in user.starredRepositories.edges" :key="repo.cursor">
+        <v-flex xs12 sm6 v-for="repo in me.starredRepositories.edges" :key="repo.cursor">
           <v-card>
             <v-card-title primary-title>
               <div>
@@ -66,16 +66,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Profile',
-  props: ['user'],
-  computed: {
-    watchList() {
-      return this.$store.getters.watchList;
-    },
-  },
+  computed: mapGetters([
+    'watchList',
+    'me',
+  ]),
   methods: {
     logout() {
       localStorage.clear();

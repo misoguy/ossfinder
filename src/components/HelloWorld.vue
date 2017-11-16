@@ -11,13 +11,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'HelloWorld',
-  props: ['login'],
   data() {
     return {
       token: '',
     };
   },
+  methods: mapActions(['login']),
 };
 </script>
