@@ -18,14 +18,9 @@
               <a :href="issue.repoUrl" target="_blank">{{issue.nwo}}</a>
             </v-list-tile-sub-title>
             <v-list-tile-sub-title>
-              <button
-                v-for="label in issue.labels.nodes"
-                :key="label.id"
-                :style="{background: `#${label.color}`}"
-                class="label-btn"
-              >
-                {{label.name}}
-              </button>
+              <template v-for="label in issue.labels.nodes">
+                <repo-label :key="label.id" :name="label.name" :color="label.color" />
+              </template>
             </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -44,12 +39,13 @@
 import { mapGetters } from 'vuex';
 import client from '@/apolloClient';
 import RepositoryIssues from '@/graphql/RepositoryIssues.gql';
-import Issue from './Issue';
+// import Issue from './Issue';
+import Label from './Label';
 
 export default {
   name: 'Issues',
   components: {
-    issue: Issue,
+    repoLabel: Label,
   },
   created() {
     const queries = [];
@@ -99,13 +95,3 @@ export default {
   ]),
 };
 </script>
-
-<style scoped>
-  .label-btn {
-    padding: 0.3rem 0.5rem;
-    border-radius: 4px;
-  }
-  .label-btn + .label-btn {
-    margin-left: 0.5rem;
-  }
-</style>

@@ -30,31 +30,17 @@
             <v-card-actions>
               <v-layout row wrap>
                 <template v-for="label in repo.node.labels.nodes">
-                  <v-btn
-                    v-if="watchList[repo.node.nameWithOwner] && watchList[repo.node.nameWithOwner][label.id]"
-                    color="green"
+                  <repo-label
                     :key="label.id"
-                    @click="toggleWatchRepoLabel({
-                      repoNameWithOwner: repo.node.nameWithOwner,
-                      labelId:label.id,
-                      labelName:label.name
-                    })"
-                  >
-                    {{label.name}}
-                  </v-btn>
-                  <v-btn
-                    v-else
-                    flat
-                    color="green"
-                    :key="label.id"
-                    @click="toggleWatchRepoLabel({
-                      repoNameWithOwner: repo.node.nameWithOwner,
-                      labelId:label.id,
-                      labelName:label.name
-                    })"
-                  >
-                    {{label.name}}
-                  </v-btn>
+                    :name="label.name"
+                    :color="label.color"
+                    :isSelected="watchList[repo.node.nameWithOwner] && !!watchList[repo.node.nameWithOwner][label.id]"
+                    :onClick="click({
+                       repoNameWithOwner: repo.node.nameWithOwner,
+                       labelId:label.id,
+                       labelName:label.name
+                     })"
+                  />
                 </template>
               </v-layout>
             </v-card-actions>
@@ -66,10 +52,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
+import Label from './Label';
 
 export default {
   name: 'Profile',
+  components: {
+    repoLabel: Label,
+  },
   computed: mapGetters([
     'watchList',
     'me',
@@ -79,7 +69,11 @@ export default {
       localStorage.clear();
       this.$router.push('/');
     },
-    ...mapActions(['toggleWatchRepoLabel']),
+    click({ repoNameWithOwner, labelId, labelName }) {
+      return () => {
+        this.$store.dispatch('toggleWatchRepoLabel', { repoNameWithOwner, labelId, labelName });
+      };
+    },
   },
 };
 </script>
