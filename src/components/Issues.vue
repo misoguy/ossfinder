@@ -1,7 +1,7 @@
 <template>
   <div v-if="issues">
     ISSUES
-    <v-list two-line>
+    <v-list three-line>
       <template v-for="(issue, index) in issues">
         <v-list-tile
           avatar
@@ -10,20 +10,22 @@
         >
           <v-list-tile-content>
             <v-list-tile-title>
-              <a :href="issue.repoUrl" target="_blank">{{issue.nwo}} {{issue.createdAt}}</a>
+              <a :href="issue.issueUrl" target="_blank">
+                {{issue.title}} | comments:{{issue.totalComments}} | {{issue.createdAt}}
+              </a>
             </v-list-tile-title>
             <v-list-tile-sub-title class="grey--text text--darken-4">
-              <a :href="issue.issueUrl" target="_blank">{{issue.title}} comments:{{issue.totalComments}}</a>
+              <a :href="issue.repoUrl" target="_blank">{{issue.nwo}}</a>
             </v-list-tile-sub-title>
             <v-list-tile-sub-title>
-              <v-btn
+              <button
                 v-for="label in issue.labels.nodes"
                 :key="label.id"
-                color="indigo"
-                outline
+                :style="{background: `#${label.color}`}"
+                class="label-btn"
               >
                 {{label.name}}
-              </v-btn>
+              </button>
             </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -97,3 +99,13 @@ export default {
   ]),
 };
 </script>
+
+<style scoped>
+  .label-btn {
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+  }
+  .label-btn + .label-btn {
+    margin-left: 0.5rem;
+  }
+</style>
