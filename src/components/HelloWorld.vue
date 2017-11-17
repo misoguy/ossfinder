@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   name: 'HelloWorld',
   data() {
@@ -20,6 +18,12 @@ export default {
       token: '',
     };
   },
-  methods: mapActions(['login']),
+  methods: {
+    login(token) {
+      this.$store.dispatch('login', token).then(() => {
+        this.$router.push('profile');
+      });
+    },
+  },
 };
 </script>
