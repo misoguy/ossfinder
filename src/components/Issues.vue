@@ -15,7 +15,7 @@
               </a>
             </v-list-tile-title>
             <v-list-tile-sub-title class="grey--text text--darken-4">
-              <a :href="issue.repoUrl" target="_blank">{{issue.nwo}}</a>
+              <a :href="issue.repoUrl" target="_blank">{{issue.repoNameWithOwner}}</a>
             </v-list-tile-sub-title>
             <v-list-tile-sub-title>
               <template v-for="label in issue.labels.nodes">
@@ -27,11 +27,6 @@
         <v-divider v-if="index + 1 < issues.length" :key="issue.issueUrl"></v-divider>
       </template>
     </v-list>
-<!-- 
-
-    <div v-for="issue in issues" :key="issue.issueUrl">
-      <issue :issue="issue" :repoUrl="issue.repoUrl" />
-    </div> -->
   </div>
 </template>
 
@@ -66,23 +61,23 @@ export default {
     });
     Promise.all(queries).then((responses) => {
       const repositories = responses.map(res => res.data.repository);
-      const tt = repositories.reduce((acc, value) => {
-        const t = value.issues.edges.map((v) => {
-          const issue = {
-            nwo: value.nameWithOwner,
-            repoUrl: value.url,
-            title: v.node.title,
-            issueUrl: v.node.url,
-            totalComments: v.node.comments.totalCount,
-            labels: v.node.labels,
-            createdAt: v.node.createdAt,
-            updatedAt: v.node.updatedAt,
+      const issues = repositories.reduce((acc, repository) => {
+        const normalizedIssues = repository.issues.nodes.map((issue) => {
+          const result = {
+            repoNameWithOwner: repository.nameWithOwner,
+            repoUrl: repository.url,
+            title: issue.title,
+            issueUrl: issue.url,
+            totalComments: issue.comments.totalCount,
+            labels: issue.labels,
+            createdAt: issue.createdAt,
+            updatedAt: issue.updatedAt,
           };
-          return issue;
+          return result;
         });
-        return acc.concat(...t);
+        return acc.concat(...normalizedIssues);
       }, []);
-      this.issues = tt.sort(
+      this.issues = issues.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     });
   },

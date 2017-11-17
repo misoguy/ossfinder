@@ -1,14 +1,29 @@
-#import "./RepositoryFragment.gql"
+#import "./fragments/RepositoryFragment.gql"
+#import "./fragments/LabelFragment.gql"
 
 query Viewer { 
   viewer { 
     login
     avatarUrl
     starredRepositories(first: 10) {
-      edges {
-        cursor
-        node {
-          ...repo
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+      nodes {
+        ...repository
+        labels(first: 10) {
+          pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+            startCursor
+          }
+          nodes {
+            ...label
+          }
         }
       }
     }

@@ -14,29 +14,28 @@
     <v-container grid-list-md text-xs-center>
       <h2>Your Starred Repositories</h2>
       <v-layout row wrap>
-        <v-flex xs12 sm6 v-for="repo in me.starredRepositories.edges" :key="repo.cursor">
+        <v-flex xs12 sm6 v-for="repo in me.starredRepositories.nodes" :key="repo.url">
           <v-card>
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">
-                  <a :href="repo.node.url" target="_blank">
-                    {{repo.node.nameWithOwner}}
+                  <a :href="repo.url" target="_blank">
+                    {{repo.nameWithOwner}}
                   </a>
                 </h3>
-                <!-- <div v-if="edge.node.description">{{edge.node.description}}</div> -->
-                <div v-html="repo.node.descriptionHTML"></div>
+                <div v-html="repo.descriptionHTML"></div>
               </div>
             </v-card-title>
             <v-card-actions>
               <v-layout row wrap>
-                <template v-for="label in repo.node.labels.nodes">
+                <template v-for="label in repo.labels.nodes">
                   <repo-label
                     :key="label.id"
                     :name="label.name"
                     :color="label.color"
-                    :isSelected="watchList[repo.node.nameWithOwner] && !!watchList[repo.node.nameWithOwner][label.id]"
+                    :isSelected="watchList[repo.nameWithOwner] && !!watchList[repo.nameWithOwner][label.id]"
                     :onClick="click({
-                       repoNameWithOwner: repo.node.nameWithOwner,
+                       repoNameWithOwner: repo.nameWithOwner,
                        labelId:label.id,
                        labelName:label.name
                      })"

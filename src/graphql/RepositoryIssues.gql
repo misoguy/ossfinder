@@ -1,15 +1,19 @@
-#import "./RepositoryFragment.gql"
-#import "./IssueFragment.gql"
+#import "./fragments/RepositoryFragment.gql"
+#import "./fragments/IssueFragment.gql"
+#import "./fragments/LabelFragment.gql"
 
 query RepositoryIssues ($owner:String!, $name:String!, $labels:[String!]) {
 	repository(owner:$owner name:$name) {
-    ...repo
-		issues(labels:$labels first: 10 states: OPEN) {
-		  edges {
-		    node {
-		      ...issue
-		    }
-		  }
+    ...repository
+		issues(labels:$labels first: 10 states: OPEN orderBy: {field: CREATED_AT direction: DESC}) {
+			nodes {
+				...issue
+				labels(first: 10) {
+					nodes {
+						...label
+					}
+				}
+			}
 		}    
   }
 }
