@@ -4,7 +4,7 @@
     class="label-btn"
     @click="handleClick"
   >
-    <v-icon v-if="isSelected">check</v-icon>
+    <v-icon v-if="isSelected" :style="{color: fontColor}">remove_red_eye</v-icon>
     {{name}}
   </button>
 </template>
@@ -37,8 +37,12 @@ export default {
 
 <style scoped>
   .label-btn {
-    padding: 0.3rem 0.5rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 4px;
     margin: 0.3rem;
+    font-weight: 600;
+  }
+  .label-btn > i {
+    font-size: 1.2rem;
   }
 </style>
