@@ -2,6 +2,9 @@
 
 fragment issue on Issue {
   title
+  url
+  createdAt
+  updatedAt
   labels(first: 10) {
     nodes {
       ...label

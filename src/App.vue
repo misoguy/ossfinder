@@ -2,6 +2,7 @@
   <v-app class="hello">
     <v-navigation-drawer app fixed v-model="drawer" width="200">
       <router-link to="profile"><button @click="closeDrawer">Profile</button></router-link>
+      <router-link to="issues"><button @click="closeDrawer">Issues</button></router-link>
     </v-navigation-drawer>
     <v-toolbar
       app
@@ -27,7 +28,7 @@
       const token = localStorage.getItem('token');
       if (token) {
         this.$store.dispatch('login', token).then(() => {
-          this.$router.push('profile');
+          // this.$router.push('profile');
         });
       }
     },
