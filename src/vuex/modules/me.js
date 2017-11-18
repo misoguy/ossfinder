@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import client from '@/apolloClient';
 import Me from '@/graphql/Me.gql';
+import router from '@/router';
 import * as types from '../mutation-types';
 
 const initialState = {
@@ -20,6 +21,9 @@ const actions = {
     return client.query({ query: Me }).then(({ data }) => {
       commit(types.LOGIN_SUCCESS, data);
     }).catch(() => {
+      router.push('/');
+      /* eslint-disable no-alert */
+      alert('Token is invalid');
       commit(types.LOGIN_FAIL);
     });
   },
