@@ -29,7 +29,9 @@ export default {
   },
   methods: {
     handleClick() {
-      this.onClick();
+      if (typeof this.onClick === 'function') {
+        this.onClick();
+      }
     },
   },
 };

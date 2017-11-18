@@ -4,18 +4,28 @@
       app
       fixed
     >
-      <router-link class="logo" to="/"><img src="/static/title_logo.svg" /></router-link>
-      <v-spacer></v-spacer>
+      <router-link class="logo" to="/">
+        <img src="/static/title_logo.svg" />
+      </router-link>
+      <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat @click="navigateTo('/')">Home</v-btn>
         <v-btn flat @click="navigateTo('profile')">Profile</v-btn>
         <v-btn flat @click="navigateTo('issues')">Issues</v-btn>
       </v-toolbar-items>
-      </v-toolbar>
+    </v-toolbar>
+
     <v-content>
       <router-view />
     </v-content>
-    <v-bottom-nav class="hidden-md-and-up" :value="true" :active="activeNav" color="white">
+
+    <v-bottom-nav
+      app
+      class="hidden-md-and-up"
+      :value="true"
+      :active="activeNav"
+      color="white"
+    >
       <v-btn flat color="teal" value="home" @click="navigateTo('/')">
         <span>Home</span>
         <v-icon>home</v-icon>

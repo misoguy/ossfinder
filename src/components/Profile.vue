@@ -10,39 +10,36 @@
       <div>
         <v-btn @click="logout" flat>Logout</v-btn>
       </div>
-    </v-container>
-    <v-container grid-list-md text-xs-center>
       <h2>Your Starred Repositories</h2>
+    </v-container>
+    <v-container grid-list-md>
       <v-layout row wrap>
         <v-flex xs12 sm6 v-for="repo in me.starredRepositories.nodes" :key="repo.url">
           <v-card>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">
+            <v-card-title>
+              <div class="card-title">
+                <h3>
                   <a :href="repo.url" target="_blank">
                     {{repo.nameWithOwner}}
                   </a>
                 </h3>
-                <div v-html="repo.descriptionHTML"></div>
+                <div v-html="repo.descriptionHTML" />
               </div>
-            </v-card-title>
-            <v-card-actions>
               <v-layout row wrap>
-                <template v-for="label in repo.labels.nodes">
-                  <repo-label
-                    :key="label.id"
-                    :name="label.name"
-                    :color="label.color"
-                    :isSelected="watchList[repo.nameWithOwner] && !!watchList[repo.nameWithOwner][label.id]"
-                    :onClick="click({
-                       repoNameWithOwner: repo.nameWithOwner,
-                       labelId:label.id,
-                       labelName:label.name
-                     })"
-                  />
-                </template>
+                <repo-label
+                  v-for="label in repo.labels.nodes"
+                  :key="label.id"
+                  :name="label.name"
+                  :color="label.color"
+                  :isSelected="watchList[repo.nameWithOwner] && !!watchList[repo.nameWithOwner][label.id]"
+                  :onClick="click({
+                      repoNameWithOwner: repo.nameWithOwner,
+                      labelId:label.id,
+                      labelName:label.name
+                    })"
+                />
               </v-layout>
-            </v-card-actions>
+            </v-card-title>
           </v-card>
         </v-flex>
       </v-layout>
@@ -76,3 +73,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .card-title {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+</style>

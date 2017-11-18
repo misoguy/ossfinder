@@ -1,40 +1,48 @@
 <template>
-  <div v-if="issues">
-    ISSUES
-    <v-list three-line>
-      <template v-for="(issue, index) in issues">
-        <v-list-tile
-          avatar
-          ripple
-          :key="issue.issueUrl"
-        >
-          <v-list-tile-content>
-            <v-list-tile-title>
-              <a :href="issue.issueUrl" target="_blank">
-                {{issue.title}} | comments:{{issue.totalComments}} | {{issue.createdAt}}
-              </a>
-            </v-list-tile-title>
-            <v-list-tile-sub-title class="grey--text text--darken-4">
-              <a :href="issue.repoUrl" target="_blank">{{issue.repoNameWithOwner}}</a>
-            </v-list-tile-sub-title>
-            <v-list-tile-sub-title>
-              <template v-for="label in issue.labels.nodes">
-                <repo-label :key="label.id" :name="label.name" :color="label.color" />
-              </template>
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider v-if="index + 1 < issues.length" :key="issue.issueUrl"></v-divider>
-      </template>
-    </v-list>
-  </div>
+  <v-container grid-list-md v-if="issues">
+    <v-layout row wrap>
+      <v-flex
+        xs12 sm6 md4
+        v-for="(issue, index) in issues"
+        :key="issue.issueUrl"
+      >
+        <v-card>
+          <v-card-title>
+            <div>
+              <h3>
+                <a :href="issue.repoUrl" target="_blank">
+                  {{issue.repoNameWithOwner}}
+                </a>
+              </h3>
+              <div>
+                <a :href="issue.issueUrl" target="_blank">
+                  {{issue.title}}
+                </a>
+                <br />
+                comments: {{issue.totalComments}}
+                <br />
+                createdAt: {{issue.createdAt}}
+              </div>
+            </div>
+            <v-layout row wrap>
+              <repo-label
+                v-for="label in issue.labels.nodes"
+                :key="label.id"
+                :name="label.name"
+                :color="label.color"
+              />
+            </v-layout>
+          </v-card-title>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import client from '@/apolloClient';
 import RepositoryIssues from '@/graphql/RepositoryIssues.gql';
-// import Issue from './Issue';
 import Label from './Label';
 
 export default {
