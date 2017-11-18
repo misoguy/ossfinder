@@ -1,5 +1,5 @@
 <template>
-  <v-app class="hello">
+  <v-app id="ossfinder-app">
     <v-toolbar
       app
       fixed

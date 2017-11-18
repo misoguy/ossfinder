@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div id="home">
     <h1>Insert Token</h1>
     <v-text-field
       label="Token"
