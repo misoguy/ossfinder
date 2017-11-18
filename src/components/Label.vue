@@ -4,7 +4,7 @@
     class="label-btn"
     @click="handleClick"
   >
-    <v-icon v-if="isSelected" :style="{color: fontColor}">remove_red_eye</v-icon>
+    <v-icon v-if="isSelected" :style="{color: fontColor}">visibility</v-icon>
     {{name}}
   </button>
 </template>

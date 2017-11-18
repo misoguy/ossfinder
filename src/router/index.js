@@ -11,12 +11,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
+      name: 'home',
       component: HelloWorld,
     },
     {
       path: '/profile',
-      name: 'Profile',
+      name: 'profile',
       component: Profile,
       beforeEnter: (to, from, next) => {
         const token = localStorage.getItem('token');
@@ -29,7 +29,7 @@ export default new Router({
     },
     {
       path: '/issues',
-      name: 'Issues',
+      name: 'issues',
       component: Issues,
     },
   ],

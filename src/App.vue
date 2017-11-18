@@ -1,23 +1,34 @@
 <template>
   <v-app class="hello">
-    <v-navigation-drawer app fixed v-model="drawer" width="200">
-      <router-link to="profile"><button @click="closeDrawer">Profile</button></router-link>
-      <router-link to="issues"><button @click="closeDrawer">Issues</button></router-link>
-    </v-navigation-drawer>
     <v-toolbar
       app
       fixed
-      dark
     >
-      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>
-        <router-link to="/">Open Source Finder</router-link>
-      </v-toolbar-title>
-    </v-toolbar>
+      <router-link class="logo" to="/"><img src="/static/title_logo.svg" /></router-link>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat @click="navigateTo('/')">Home</v-btn>
+        <v-btn flat @click="navigateTo('profile')">Profile</v-btn>
+        <v-btn flat @click="navigateTo('issues')">Issues</v-btn>
+      </v-toolbar-items>
+      </v-toolbar>
     <v-content>
       <router-view />
     </v-content>
-    <v-footer app></v-footer>
+    <v-bottom-nav class="hidden-md-and-up" :value="true" :active="activeNav" color="white">
+      <v-btn flat color="teal" value="home" @click="navigateTo('/')">
+        <span>Home</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+      <v-btn flat color="teal" value="profile" @click="navigateTo('profile')">
+        <span>Profile</span>
+        <v-icon>account_circle</v-icon>
+      </v-btn>
+      <v-btn flat color="teal" value="issues" @click="navigateTo('issues')">
+        <span>Issues</span>
+        <v-icon>list</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
@@ -31,14 +42,32 @@
           // this.$router.push('profile');
         });
       }
+      this.activeNav = this.$router.history.current.name;
     },
     data: () => ({
-      drawer: false,
+      activeNav: '',
     }),
     methods: {
       closeDrawer() {
         this.drawer = false;
       },
+      navigateTo(dest) {
+        this.$router.push(dest);
+        if (dest === '/') {
+          this.activeNav = 'home';
+        } else {
+          this.activeNav = dest;
+        }
+      },
     },
   };
 </script>
+
+<style scoped>
+  .logo {
+    height: 100%;
+  }
+  .logo img {
+    height: 100%;
+  }
+</style>
