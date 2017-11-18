@@ -17,12 +17,11 @@ const actions = {
   login({ commit }, token) {
     commit(types.LOGIN);
     localStorage.setItem('token', token);
-    return client.query({ query: Me }).then(
-      ({ data }) => {
-        commit(types.LOGIN_SUCCESS, data);
-      }).catch(() => {
-        commit(types.LOGIN_FAIL);
-      });
+    return client.query({ query: Me }).then(({ data }) => {
+      commit(types.LOGIN_SUCCESS, data);
+    }).catch(() => {
+      commit(types.LOGIN_FAIL);
+    });
   },
 };
 

@@ -77,8 +77,8 @@ export default {
         });
         return acc.concat(...normalizedIssues);
       }, []);
-      this.issues = issues.sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      this.issues = issues.sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     });
   },
   data() {
