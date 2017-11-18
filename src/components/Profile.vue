@@ -7,12 +7,9 @@
       <v-avatar size="100px">
         <img :src="me.avatarUrl" alt="avatar">
       </v-avatar>
-      <div>
-        <v-btn @click="logout" flat>Logout</v-btn>
-      </div>
-      <h2>Your Starred Repositories</h2>
     </v-container>
     <v-container grid-list-md>
+      <h2>Your Starred Repositories</h2>
       <v-layout row wrap>
         <v-flex xs12 sm6 v-for="repo in me.starredRepositories.nodes" :key="repo.url">
           <v-card>
@@ -61,10 +58,6 @@ export default {
     'me',
   ]),
   methods: {
-    logout() {
-      localStorage.clear();
-      this.$router.push('/');
-    },
     click({ repoNameWithOwner, labelId, labelName }) {
       return () => {
         this.$store.dispatch('toggleWatchRepoLabel', { repoNameWithOwner, labelId, labelName });
@@ -78,5 +71,8 @@ export default {
   .card-title {
     width: 100%;
     margin-bottom: 0.5rem;
+  }
+  h2 {
+    text-align: center;
   }
 </style>

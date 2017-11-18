@@ -23,6 +23,9 @@ const actions = {
       commit(types.LOGIN_FAIL);
     });
   },
+  logout({ commit }) {
+    commit(types.LOGOUT);
+  },
 };
 
 const mutations = {
@@ -34,6 +37,11 @@ const mutations = {
     state.isLoggingIn = false;
   },
   [types.LOGIN_FAIL](state) {
+    localStorage.clear();
+    state.data = undefined;
+    state.isLoggingIn = false;
+  },
+  [types.LOGOUT](state) {
     localStorage.clear();
     state.data = undefined;
     state.isLoggingIn = false;

@@ -1,5 +1,5 @@
-const watchList = state => state.watchList;
+const currentPath = state => state.route.path;
 
 export default {
-  watchList,
+  currentPath,
 };

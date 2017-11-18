@@ -1,13 +1,5 @@
 <template>
-  <div id="home">
-    <h1>Insert Token</h1>
-    <v-text-field
-      label="Token"
-      v-model="token"
-    >
-    </v-text-field>
-    <v-btn @click="login(token)" color="primary">Login</v-btn>
-  </div>
+  <img width="100%" src="/static/image.jpeg" alt="Open Source Software" />
 </template>
 
 <script>
