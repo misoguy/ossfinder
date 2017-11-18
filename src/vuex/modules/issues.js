@@ -23,11 +23,9 @@ const actions = {
     const nameWithOwnerList = Object.keys(watchList);
     nameWithOwnerList.forEach((nameWithOwner) => {
       const [owner, repoName] = nameWithOwner.split('/');
-      const labels = [];
       const watchRepo = watchList[nameWithOwner];
-      Object.keys(watchRepo).forEach((key) => {
-        labels.push(watchRepo[key]);
-      });
+      const labels = watchRepo.map(l => l.name);
+
       const variables = {
         owner,
         name: repoName,

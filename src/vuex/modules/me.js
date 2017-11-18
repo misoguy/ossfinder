@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import client from '@/apolloClient';
 import Me from '@/graphql/Me.gql';
+import RepositoryLabels from '@/graphql/RepositoryLabels.gql';
 import router from '@/router';
 import * as types from '../mutation-types';
 
@@ -30,6 +31,17 @@ const actions = {
   logout({ commit }) {
     commit(types.LOGOUT);
   },
+  loadMoreLabels({ commit }, { repoNameWithOwner, endCursor }) {
+    const [owner, repoName] = repoNameWithOwner.split('/');
+    const variables = {
+      owner,
+      name: repoName,
+      after: endCursor,
+    };
+    return client.query({ query: RepositoryLabels, variables }).then(({ data }) => {
+      commit(types.LOAD_MORE_LABELS, data);
+    });
+  },
 };
 
 const mutations = {
@@ -49,6 +61,22 @@ const mutations = {
     localStorage.clear();
     state.data = undefined;
     state.isLoggingIn = false;
+  },
+  [types.LOAD_MORE_LABELS](state, data) {
+    const newNodes = state.data.starredRepositories.nodes.map((repo) => {
+      if (repo.nameWithOwner === data.repository.nameWithOwner) {
+        return {
+          ...data.repository,
+          labels: {
+            ...data.repository.labels,
+            nodes: repo.labels.nodes.concat(data.repository.labels.nodes),
+          },
+        };
+      }
+      return repo;
+    });
+
+    Vue.set(state, 'data', { ...state.data, starredRepositories: { ...state.data.starredRepositories, nodes: newNodes } });
   },
 };
 

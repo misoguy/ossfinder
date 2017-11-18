@@ -8,7 +8,7 @@ query RepositoryIssues ($owner:String!, $name:String!, $labels:[String!]) {
 		issues(labels:$labels first: 10 states: OPEN orderBy: {field: CREATED_AT direction: DESC}) {
 			nodes {
 				...issue
-				labels(first: 10) {
+				labels(first: 5) {
 					nodes {
 						...label
 					}
