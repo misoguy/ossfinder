@@ -1,5 +1,7 @@
 
-# ossfinder [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![Circle CI](https://circleci.com/gh/misoguy/ossfinder.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/misoguy/ossfinder) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+![OSS Finder](/static/title_logo.png)
+==========
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![Circle CI](https://circleci.com/gh/misoguy/ossfinder.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/misoguy/ossfinder) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 > Open Source Software Finder
 
