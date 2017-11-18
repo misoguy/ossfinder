@@ -1,5 +1,6 @@
 <template>
-  <v-container grid-list-md v-if="issues">
+  <v-progress-linear height="4" color="teal" :indeterminate="true" v-if="isFetchingIssues" />
+  <v-container grid-list-md v-else>
     <v-layout row wrap>
       <v-flex
         xs12 sm6 md4
@@ -40,9 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import client from '@/apolloClient';
-import RepositoryIssues from '@/graphql/RepositoryIssues.gql';
+import { mapGetters, mapActions } from 'vuex';
 import Label from './Label';
 
 export default {
@@ -51,50 +50,20 @@ export default {
     repoLabel: Label,
   },
   created() {
-    const queries = [];
-    const nameWithOwnerList = Object.keys(this.watchList);
-    nameWithOwnerList.forEach((nameWithOwner) => {
-      const [owner, repoName] = nameWithOwner.split('/');
-      const labels = [];
-      const watchRepo = this.watchList[nameWithOwner];
-      Object.keys(watchRepo).forEach((key) => {
-        labels.push(watchRepo[key]);
-      });
-      const variables = {
-        owner,
-        name: repoName,
-        labels,
-      };
-      queries.push(client.query({ query: RepositoryIssues, variables }));
-    });
-    Promise.all(queries).then((responses) => {
-      const repositories = responses.map(res => res.data.repository);
-      const issues = repositories.reduce((acc, repository) => {
-        const normalizedIssues = repository.issues.nodes.map((issue) => {
-          const result = {
-            repoNameWithOwner: repository.nameWithOwner,
-            repoUrl: repository.url,
-            title: issue.title,
-            issueUrl: issue.url,
-            totalComments: issue.comments.totalCount,
-            labels: issue.labels,
-            createdAt: issue.createdAt,
-            updatedAt: issue.updatedAt,
-          };
-          return result;
-        });
-        return acc.concat(...normalizedIssues);
-      }, []);
-      this.issues = issues.sort((a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    });
-  },
-  data() {
-    return { issues: [] };
+    this.getIssueList(this.watchList);
   },
   computed: mapGetters([
-    'watchList',
     'me',
+    'issues',
+    'watchList',
+    'isFetchingIssues',
   ]),
+  methods: mapActions(['getIssueList']),
 };
 </script>
+
+<style scoped>
+  .progress-linear {
+    margin: 0;
+  }
+</style>
