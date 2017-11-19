@@ -4,6 +4,7 @@
 query Me($after:String) { 
   viewer { 
     login
+    name
     avatarUrl
     starredRepositories(first: 10 after:$after) {
       pageInfo {

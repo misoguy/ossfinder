@@ -15,7 +15,7 @@
           <v-icon>more_vert</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile @click="show = !show">
+          <v-list-tile @click="showLabelList = !showLabelList">
             <v-list-tile-title>Add more labels</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="clearAllLabels(repo.nameWithOwner)">
@@ -26,13 +26,13 @@
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
-      <v-layout column wrap>
-        <h3>Watch List</h3>
-        <v-layout
-          row
-          wrap
-          v-if="watchList[repo.nameWithOwner] && watchList[repo.nameWithOwner].length > 0"
-        >
+      <v-layout
+        column
+        wrap
+        v-if="watchList[repo.nameWithOwner] && watchList[repo.nameWithOwner].length > 0"
+      >
+        <h3>Watching Labels</h3>
+        <v-layout row wrap>
           <repo-label
             v-for="label in watchList[repo.nameWithOwner]"
             :key="label.id"
@@ -40,12 +40,13 @@
             :color="label.color"
           />
         </v-layout>
-        <div v-else>
-          No
-        </div>
+      </v-layout>
+      <v-layout v-else column>
+        <h3>Not watching any labels</h3>
+        <v-btn @click.native="showLabelList = !showLabelList">Show label list</v-btn>
       </v-layout>
     </v-card-text>
-    <v-dialog v-model="show" scrollable max-width="300px">
+    <v-dialog v-model="showLabelList" scrollable max-width="300px">
       <v-card>
         <v-card-title>Select labels to watch</v-card-title>
         <v-divider></v-divider>
@@ -58,7 +59,7 @@
               :color="label.color"
               :isSelected="watchList[repo.nameWithOwner]
                             && (watchList[repo.nameWithOwner].filter(l => l.id === label.id).length > 0)"
-              :onClick="click({
+              :onClick="toggleWatchRepoLabel({
                   repoNameWithOwner: repo.nameWithOwner,
                   label
                 })"
@@ -76,7 +77,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn right color="blue darken-1" flat @click.native="show = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="showLabelList = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -95,14 +96,14 @@ export default {
   props: ['repo'],
   data() {
     return {
-      show: false,
+      showLabelList: false,
     };
   },
   computed: mapGetters([
     'watchList',
   ]),
   methods: {
-    click({ repoNameWithOwner, label }) {
+    toggleWatchRepoLabel({ repoNameWithOwner, label }) {
       return () => {
         this.$store.dispatch('toggleWatchRepoLabel', { repoNameWithOwner, label });
       };
@@ -111,9 +112,6 @@ export default {
       return () => {
         this.$store.dispatch('loadMoreLabels', { repoNameWithOwner, endCursor });
       };
-    },
-    toggleShowMoreLabels() {
-      this.show = !this.show;
     },
     clearAllLabels(repoNameWithOwner) {
       this.$store.dispatch('clearAllLabels', { repoNameWithOwner });
