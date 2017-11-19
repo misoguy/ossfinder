@@ -1,11 +1,11 @@
 #import "./fragments/RepositoryFragment.gql"
 #import "./fragments/LabelFragment.gql"
 
-query Viewer { 
+query Me($after:String) { 
   viewer { 
     login
     avatarUrl
-    starredRepositories(first: 10) {
+    starredRepositories(first: 10 after:$after) {
       pageInfo {
         endCursor
         hasNextPage

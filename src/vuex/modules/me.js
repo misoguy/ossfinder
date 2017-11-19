@@ -42,6 +42,12 @@ const actions = {
       commit(types.LOAD_MORE_LABELS, data);
     });
   },
+  loadMoreStarredRepos({ commit }, endCursor) {
+    return client.query({ query: Me, variables: { after: endCursor } }).then(({ data }) => {
+      commit(types.LOAD_MORE_STARRED_REPOS, data);
+      return data.viewer.starredRepositories.pageInfo;
+    });
+  },
 };
 
 const mutations = {
@@ -77,6 +83,18 @@ const mutations = {
     });
 
     Vue.set(state, 'data', { ...state.data, starredRepositories: { ...state.data.starredRepositories, nodes: newNodes } });
+  },
+  [types.LOAD_MORE_STARRED_REPOS](state, data) {
+    Vue.set(
+      state, 'data',
+      {
+        ...state.data,
+        starredRepositories: {
+          ...data.viewer.starredRepositories,
+          nodes: state.data.starredRepositories.nodes.concat(data.viewer.starredRepositories.nodes),
+        },
+      },
+    );
   },
 };
 

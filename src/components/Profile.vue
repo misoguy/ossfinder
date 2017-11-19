@@ -21,22 +21,43 @@
           <repo-card :repo="repo"/>
         </v-flex>
       </v-layout>
+      <infinite-loading @infinite="infiniteHandler">
+        <span slot="no-more">
+          No more starred repository
+        </span>
+      </infinite-loading>
     </v-container>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import InfiniteLoading from 'vue-infinite-loading';
 import RepositoryCard from './RepositoryCard';
 
 export default {
   name: 'Profile',
   components: {
     repoCard: RepositoryCard,
+    InfiniteLoading,
   },
   computed: mapGetters([
     'me',
   ]),
+  methods: {
+    infiniteHandler($state) {
+      if (this.me.starredRepositories.pageInfo.hasNextPage) {
+        const { endCursor } = this.me.starredRepositories.pageInfo;
+        this.loadMoreStarredRepos(endCursor).then((pageInfo) => {
+          $state.loaded();
+          if (!pageInfo.hasNextPage) {
+            $state.complete();
+          }
+        });
+      }
+    },
+    ...mapActions(['loadMoreStarredRepos']),
+  },
 };
 </script>
 
