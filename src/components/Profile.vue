@@ -21,7 +21,10 @@
           <repo-card :repo="repo"/>
         </v-flex>
       </v-layout>
-      <infinite-loading @infinite="infiniteHandler">
+      <infinite-loading
+        @infinite="infiniteHandler"
+        spinner="waveDots"
+      >
         <span slot="no-more">
           No more starred repository
         </span>
@@ -54,6 +57,9 @@ export default {
             $state.complete();
           }
         });
+      } else {
+        $state.loaded();
+        $state.complete();
       }
     },
     ...mapActions(['loadMoreStarredRepos']),
