@@ -6,7 +6,7 @@
       color="secondary"
       round
     >
-      <img height="100%" src="../assets/Github.png">
+      <img height="100%" src="static/Github.png">
       CONTRIBUTE ON GITHUB
     </v-btn>
   </v-container>
