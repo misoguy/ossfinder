@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync';
+import VueAnalytics from 'vue-analytics';
 
 import App from './App';
 import router from './router';
@@ -12,6 +13,11 @@ Vue.use(Vuetify);
 Vue.config.productionTip = false;
 
 sync(store, router);
+
+Vue.use(VueAnalytics, {
+  id: 'UA-104961356-2',
+  router,
+});
 
 /* eslint-disable no-new */
 new Vue({
