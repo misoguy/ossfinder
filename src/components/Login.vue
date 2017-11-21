@@ -21,6 +21,7 @@
               block
               color="secondary"
               href="https://github.com/settings/tokens/new"
+              target="_blank"
             >
               <img src="static/Github.png">
               Get token from Github
