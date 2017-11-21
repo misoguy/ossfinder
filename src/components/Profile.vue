@@ -14,7 +14,7 @@
       </h2>
       <v-layout row wrap>
         <v-flex
-          xs12 offset-sm2 sm8
+          xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4
           v-for="repo in me.starredRepositories.nodes"
           :key="repo.url"
         >

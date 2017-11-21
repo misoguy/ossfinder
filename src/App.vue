@@ -9,11 +9,11 @@
       </router-link>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat to="/">Home</v-btn>
+        <v-btn flat color="teal" exact to="/">Home</v-btn>
         <template v-if="me">
-          <v-btn flat to="/profile">Profile</v-btn>
-          <v-btn flat to="/issues">Issues</v-btn>
-          <v-btn flat @click="logout">Logout</v-btn>
+          <v-btn flat color="teal" to="/profile">Profile</v-btn>
+          <v-btn flat color="teal" to="/issues">Issues</v-btn>
+          <v-btn flat color="teal" @click="logout">Logout</v-btn>
         </template>
         <v-btn v-else flat to="/login">Login</v-btn>
       </v-toolbar-items>
