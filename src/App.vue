@@ -15,7 +15,7 @@
           <v-btn flat color="teal" to="/issues">Issues</v-btn>
           <v-btn flat color="teal" @click.stop="logoutDialog = true">Logout</v-btn>
         </template>
-        <v-btn v-else flat to="/login">Login</v-btn>
+        <v-btn v-else flat color="teal" to="/login">Login</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
