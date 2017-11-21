@@ -30,6 +30,12 @@
                   {{issue.title}}
                 </a>
               </span>
+              <div class="issue-info">
+                <v-icon>access_time</v-icon>
+                <span class="created-at">{{new Date(issue.createdAt).toLocaleString()}}</span>
+                <v-icon>message</v-icon> 
+                <span class="total-comments">{{issue.totalComments}}</span>
+              </div>
               <v-layout row wrap>
                 <repo-label
                   v-for="label in issue.labels.nodes"
@@ -38,30 +44,28 @@
                   :color="label.color"
                 />
               </v-layout>
-              <v-layout row wrap align-center>
-                <v-icon>access_time</v-icon>
-                <span class="created-at">{{new Date(issue.createdAt).toLocaleString()}}</span>
-                <v-icon>message</v-icon> 
-                <span class="total-comments">{{issue.totalComments}}</span>
-              </v-layout>
-              <v-btn v-if="!issue.bodyHTML" flat block>
-                NO ISSUE DESCRIPTION
-              </v-btn>
-              <v-btn v-else-if="issue.bodyHTML && !showDescription[issue.id]" flat block @click="toggleDescription(issue.id)">
-                SHOW ISSUE DESCRIPTION 
-                <v-icon>keyboard_arrow_down</v-icon>
-              </v-btn>
             </v-layout>
           </v-card-title>
+          <v-card-actions>
+            <v-btn v-if="!issue.bodyHTML" flat block>
+              NO ISSUE DESCRIPTION
+            </v-btn>
+            <v-btn v-else-if="issue.bodyHTML && !showDescription[issue.id]" flat block @click="toggleDescription(issue.id)">
+              SHOW ISSUE DESCRIPTION 
+              <v-icon>keyboard_arrow_down</v-icon>
+            </v-btn>
+          </v-card-actions>
           <v-slide-y-transition>
             <v-card-text v-show="showDescription[issue.id]">
               <div v-html="issue.bodyHTML" />
+              <v-layout row justify-center>
                 <v-btn block :href="issue.url" target="_blank">
                   TO GITHUB ISSUE
                 </v-btn>
-                <v-btn flat block @click="toggleDescription(issue.id)">
+                <v-btn icon @click="toggleDescription(issue.id)">
                   <v-icon>keyboard_arrow_up</v-icon>
                 </v-btn>
+              </v-layout>
             </v-card-text>
           </v-slide-y-transition>
         </v-card>
@@ -107,6 +111,11 @@ export default {
 <style scoped>
   .progress-linear {
     margin: 0;
+  }
+  .issue-info {
+    display: flex;
+    align-items: center;
+    margin: 0.2rem 0 0.5rem
   }
   .created-at, .total-comments {
     margin-left: 0.2rem;
