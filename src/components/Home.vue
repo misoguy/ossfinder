@@ -45,7 +45,7 @@ export default {
   }
   .contribute {
     padding: 3rem 1rem;
-    background: linear-gradient(left top, #ffffff, #607d8b);
+    background: linear-gradient(to bottom, #ffffff, #607d8b);
   }
   .github-icon {
     margin-right: 1rem;
