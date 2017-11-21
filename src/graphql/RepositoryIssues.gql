@@ -13,6 +13,9 @@ query RepositoryIssues ($owner:String!, $name:String!, $labels:[String!]) {
 						...label
 					}
 				}
+				comments {
+					totalCount
+				}
 			}
 		}    
   }

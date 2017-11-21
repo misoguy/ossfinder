@@ -40,11 +40,12 @@ const actions = {
           repoNameWithOwner: repository.nameWithOwner,
           repoUrl: repository.url,
           title: issue.title,
+          id: issue.id,
           issueUrl: issue.url,
+          bodyHTML: issue.bodyHTML,
           totalComments: issue.comments.totalCount,
           labels: issue.labels,
           createdAt: issue.createdAt,
-          updatedAt: issue.updatedAt,
         }));
         return acc.concat(...normalizedIssues);
       }, []);
