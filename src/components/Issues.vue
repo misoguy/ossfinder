@@ -15,7 +15,7 @@
         v-else
         xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4
         v-for="(issue, index) in issues"
-        :key="issue.issueUrl"
+        :key="issue.id"
       >
         <v-card>
           <v-card-title>
@@ -26,7 +26,7 @@
                 </a>
               </h3>
               <span>
-                <a :href="issue.issueUrl" target="_blank">
+                <a :href="issue.url" target="_blank">
                   {{issue.title}}
                 </a>
               </span>
@@ -44,21 +44,24 @@
                 <v-icon>message</v-icon> 
                 <span class="total-comments">{{issue.totalComments}}</span>
               </v-layout>
-            <v-btn v-if="issue.bodyHTML" flat block @click="toggleDescription(issue.id)">
-              {{ showDescription[issue.id] ? 'HIDE' : 'SHOW' }} ISSUE DESCRIPTION 
-              <v-icon>{{ showDescription[issue.id] ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-            </v-btn>
-            <v-btn v-else flat block>
-              NO DESCRIPTION
-            </v-btn>
+              <v-btn v-if="!issue.bodyHTML" flat block>
+                NO ISSUE DESCRIPTION
+              </v-btn>
+              <v-btn v-else-if="issue.bodyHTML && !showDescription[issue.id]" flat block @click="toggleDescription(issue.id)">
+                SHOW ISSUE DESCRIPTION 
+                <v-icon>keyboard_arrow_down</v-icon>
+              </v-btn>
             </v-layout>
           </v-card-title>
           <v-slide-y-transition>
             <v-card-text v-show="showDescription[issue.id]">
               <div v-html="issue.bodyHTML" />
-              <v-btn v-if="issue.bodyHTML" flat block @click="toggleDescription(issue.id)">
-                HIDE DESCRIPTION <v-icon>keyboard_arrow_up</v-icon>
-              </v-btn>
+                <v-btn block :href="issue.url" target="_blank">
+                  TO GITHUB ISSUE
+                </v-btn>
+                <v-btn flat block @click="toggleDescription(issue.id)">
+                  <v-icon>keyboard_arrow_up</v-icon>
+                </v-btn>
             </v-card-text>
           </v-slide-y-transition>
         </v-card>
