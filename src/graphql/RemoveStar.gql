@@ -1,0 +1,7 @@
+mutation RemoveStar($repoId: ID!) {
+  removeStar(input: { starrableId: $repoId }) {
+    starrable {
+      id
+    }
+  }
+}

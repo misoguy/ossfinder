@@ -1,0 +1,15 @@
+#import "./fragments/RepositoryFragment.gql"
+
+query FindRepositories($query: String!, $after: String) {
+  search(type: REPOSITORY query: $query first: 10 after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    nodes {
+      ...repository
+    }
+  }
+}

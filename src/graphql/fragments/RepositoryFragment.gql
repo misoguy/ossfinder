@@ -1,7 +1,9 @@
 fragment repository on Repository {
+  id
   name
   nameWithOwner
   url
   description
   descriptionHTML
+  viewerHasStarred
 }
