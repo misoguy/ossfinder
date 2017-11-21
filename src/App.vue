@@ -115,6 +115,7 @@
 <style scoped>
   .logo {
     height: 100%;
+    padding: 0.8rem 0;
   }
   .logo img {
     height: 100%;
