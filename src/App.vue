@@ -13,7 +13,7 @@
         <template v-if="me">
           <v-btn flat color="teal" to="/profile">Profile</v-btn>
           <v-btn flat color="teal" to="/issues">Issues</v-btn>
-          <v-btn flat color="teal" @click="logout">Logout</v-btn>
+          <v-btn flat color="teal" @click.stop="logoutDialog = true">Logout</v-btn>
         </template>
         <v-btn v-else flat to="/login">Login</v-btn>
       </v-toolbar-items>
@@ -43,7 +43,7 @@
           <span>Issues</span>
           <v-icon>list</v-icon>
         </v-btn>
-        <v-btn flat color="teal" @click="logout">
+        <v-btn flat color="teal" @click.stop="logoutDialog = true">
           <span>Logout</span>
           <v-icon>launch</v-icon>
         </v-btn>
@@ -53,6 +53,29 @@
         <v-icon>input</v-icon>
       </v-btn>
     </v-bottom-nav>
+
+    <v-dialog v-model="logoutDialog" max-width="400px">
+      <v-card>
+        <v-card-title>
+          <h3>
+            Your access token and watch list will be cleared from the localStorage.
+          </h3>
+        </v-card-title>
+        <v-layout row justify-center>
+          Confirm Logout?
+        </v-layout>
+        <v-card-actions>
+          <v-layout row justify-center>
+            <v-btn outline color="red" @click="logout">
+              LOGOUT
+            </v-btn>
+            <v-btn outline color="grey" @click.stop="logoutDialog=false">
+              CANCEL
+            </v-btn>
+          </v-layout>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -67,6 +90,11 @@
         this.$store.dispatch('login', token);
       }
     },
+    data() {
+      return {
+        logoutDialog: false,
+      };
+    },
     computed: {
       ...mapGetters([
         'me',
@@ -75,13 +103,10 @@
     },
     methods: {
       logout() {
-        /* eslint-disable no-alert */
-        /* eslint-disable no-restricted-globals */
-        if (confirm('All data will be lost. Confirm Logout?')) {
-          this.$store.dispatch('logout').then(() => {
-            this.$router.push('/');
-          });
-        }
+        this.$store.dispatch('logout').then(() => {
+          this.logoutDialog = false;
+          this.$router.push('/');
+        });
       },
     },
   };
