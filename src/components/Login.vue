@@ -13,7 +13,7 @@
               v-model="token"
             >
             </v-text-field>
-            <v-btn @click="login(token)" block color="primary">
+            <v-btn @click="login" block color="primary">
               Sign in
             </v-btn>
             <h6 class="body-1">or</h6>
@@ -44,8 +44,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    login(token: number) {
-      this.$store.dispatch('login', token).then(() => {
+    login() {
+      this.$store.dispatch('login', this.token).then(() => {
         this.$router.push('profile');
       });
     },

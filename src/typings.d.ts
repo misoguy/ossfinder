@@ -5,4 +5,3 @@ declare module "*.vue" {
 
 declare module 'vue-analytics';
 declare module 'vue-infinite-loading';
-declare module '@/apolloClient';

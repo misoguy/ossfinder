@@ -14,7 +14,7 @@
       <v-flex
         v-else
         xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4
-        v-for="(issue, index) in issues"
+        v-for="issue in issues"
         :key="issue.id"
       >
         <v-card>
