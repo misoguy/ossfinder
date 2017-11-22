@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import client from '@/apolloClient';
-import {Getter, Action, Mutation} from 'vuex';
+import { Getter, Action, Mutation } from 'vuex';
 // import Me from '@/graphql/Me.gql';
 import Me from '@/graphql/me';
 // import RepositoryLabels from '@/graphql/RepositoryLabels.gql';
 import RepositoryLabels from '@/graphql/RepositoryLabels';
 import router from '@/router';
 import * as types from '../mutation-types';
-import {RootState} from '../store';
+import { RootState } from '../store';
 
 type MeState = {
   isLoggingIn: boolean,
   data: any,
-}
+};
 
 const initialState = {
   isLoggingIn: false,
@@ -52,10 +52,11 @@ const actions:{[key: string]: Action<MeState, RootState>} = {
     });
   },
   loadMoreStarredRepos({ commit }, endCursor) {
-    return client.query({ query: Me, variables: { after: endCursor } }).then(({ data }:{data: any}) => {
-      commit(types.LOAD_MORE_STARRED_REPOS, data);
-      return data.viewer.starredRepositories.pageInfo;
-    });
+    return client.query({ query: Me, variables: { after: endCursor } })
+      .then(({ data }:{data: any}) => {
+        commit(types.LOAD_MORE_STARRED_REPOS, data);
+        return data.viewer.starredRepositories.pageInfo;
+      });
   },
 };
 
@@ -91,7 +92,14 @@ const mutations:{[key: string]: Mutation<MeState>} = {
       return repo;
     });
 
-    Vue.set(state, 'data', { ...state.data, starredRepositories: { ...state.data.starredRepositories, nodes: newNodes } });
+    Vue.set(
+      state,
+      'data',
+      {
+        ...state.data,
+        starredRepositories: { ...state.data.starredRepositories, nodes: newNodes },
+      },
+    );
   },
   [types.LOAD_MORE_STARRED_REPOS](state, data) {
     Vue.set(

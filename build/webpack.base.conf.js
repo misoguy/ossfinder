@@ -30,7 +30,8 @@ module.exports = {
   module: {
     rules: [
       ...(config.dev.useEslint? [{
-        test: /\.(js|vue)$/,
+        // test: /\.(js|vue)$/,
+        test: /\.(js)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
         include: [resolve('src'), resolve('test')],
@@ -39,6 +40,16 @@ module.exports = {
           emitWarning: !config.dev.showEslintErrorsInOverlay
         }
       }] : []),
+      {
+        enforce: 'pre',
+        test: /\.ts$/,
+        exclude: /(node_modules)/,
+        loader: 'tslint-loader',
+        options: {
+          emitErrors: process.env.NODE_ENV === 'production',
+          formatter: 'codeFrame'
+        }
+      },
       {
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,

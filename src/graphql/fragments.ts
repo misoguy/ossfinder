@@ -25,5 +25,5 @@ export default {
       description
       descriptionHTML
     }
-  `
-}
+  `,
+};
