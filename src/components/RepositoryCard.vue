@@ -84,11 +84,12 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { mapGetters } from 'vuex';
-import Label from './Label';
+import Label from './Label.vue';
 
-export default {
+export default Vue.extend({
   name: 'RepositoryCard',
   components: {
     repoLabel: Label,
@@ -103,21 +104,23 @@ export default {
     'watchList',
   ]),
   methods: {
-    toggleWatchRepoLabel({ repoNameWithOwner, label }) {
+    toggleWatchRepoLabel({ repoNameWithOwner, label }
+    : { repoNameWithOwner: string, label: string }) {
       return () => {
         this.$store.dispatch('toggleWatchRepoLabel', { repoNameWithOwner, label });
       };
     },
-    loadMoreLabels({ repoNameWithOwner, endCursor }) {
+    loadMoreLabels({ repoNameWithOwner, endCursor }
+    : { repoNameWithOwner: string, endCursor: string }) {
       return () => {
         this.$store.dispatch('loadMoreLabels', { repoNameWithOwner, endCursor });
       };
     },
-    clearAllLabels(repoNameWithOwner) {
+    clearAllLabels(repoNameWithOwner: string) {
       this.$store.dispatch('clearAllLabels', { repoNameWithOwner });
     },
   },
-};
+});
 </script>
 
 <style scoped>

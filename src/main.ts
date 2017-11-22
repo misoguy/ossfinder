@@ -5,7 +5,7 @@ import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync';
 import VueAnalytics from 'vue-analytics';
 
-import App from './App';
+import App from './App.vue';
 import router from './router';
 import store from './vuex/store';
 

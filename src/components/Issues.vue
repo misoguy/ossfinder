@@ -74,12 +74,16 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
-import Label from './Label';
+import Label from './Label.vue';
 
-export default {
+interface IDescription {
+  [key: string]: boolean;
+}
+
+export default Vue.extend({
   name: 'Issues',
   components: {
     repoLabel: Label,
@@ -88,24 +92,27 @@ export default {
     this.getIssueList(this.watchList);
   },
   data() {
+    const showDescription:IDescription = {};
     return {
-      showDescription: {},
+      showDescription,
     };
   },
-  computed: mapGetters([
-    'me',
-    'issues',
-    'watchList',
-    'isFetchingIssues',
-  ]),
+  computed: {
+    ...mapGetters([
+      'me',
+      'issues',
+      'isFetchingIssues',
+      'watchList',
+    ]),
+  },
   methods: {
-    toggleDescription(issueId) {
+    toggleDescription(issueId: string) {
       this.showDescription[issueId] =
         Vue.set(this.showDescription, issueId, !this.showDescription[issueId]);
     },
     ...mapActions(['getIssueList']),
   },
-};
+});
 </script>
 
 <style scoped>
