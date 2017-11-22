@@ -33,12 +33,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import InfiniteLoading from 'vue-infinite-loading';
-import RepositoryCard from './RepositoryCard';
+import { IPageInfo } from '../graphql/interfaces';
+import RepositoryCard from './RepositoryCard.vue';
 
-export default {
+export default Vue.extend({
   name: 'Profile',
   components: {
     repoCard: RepositoryCard,
@@ -48,10 +50,10 @@ export default {
     'me',
   ]),
   methods: {
-    infiniteHandler($state) {
+    infiniteHandler($state: {loaded: Function, complete: Function}) {
       if (this.me.starredRepositories.pageInfo.hasNextPage) {
         const { endCursor } = this.me.starredRepositories.pageInfo;
-        this.loadMoreStarredRepos(endCursor).then((pageInfo) => {
+        this.loadMoreStarredRepos(endCursor).then((pageInfo: IPageInfo) => {
           $state.loaded();
           if (!pageInfo.hasNextPage) {
             $state.complete();
@@ -64,7 +66,7 @@ export default {
     },
     ...mapActions(['loadMoreStarredRepos']),
   },
-};
+});
 </script>
 
 <style scoped>

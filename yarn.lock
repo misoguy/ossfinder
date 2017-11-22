@@ -62,6 +62,10 @@
   version "21.1.6"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.6.tgz#9467945ce33261e4fdd14276576951aa130515aa"
 
+"@types/node@^8.0.53":
+  version "8.0.53"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.53.tgz#396b35af826fa66aad472c8cb7b8d5e277f4e6d8"
+
 "@types/strip-bom@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/strip-bom/-/strip-bom-3.0.0.tgz#14a8ec3956c2e81edb7520790aecf21c290aebd2"
@@ -207,15 +211,15 @@ anymatch@^1.3.0:
     micromatch "^2.1.5"
     normalize-path "^2.0.0"
 
-apollo-cache-inmemory@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.1.1.tgz#1511f00eb845da88504abf867f408c3026a909ba"
+apollo-cache-inmemory@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.0.0.tgz#5bff079d5b70402cd76ecc7c700851aa025d9993"
   dependencies:
-    apollo-cache "^1.0.1"
-    apollo-utilities "^1.0.2"
-    graphql-anywhere "^4.0.1"
+    apollo-cache "^1.0.0"
+    apollo-utilities "^1.0.0"
+    graphql-anywhere "^4.0.0"
 
-apollo-cache@^1.0.1:
+apollo-cache@^1.0.0, apollo-cache@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/apollo-cache/-/apollo-cache-1.0.1.tgz#66c16141173bc752d3ad3dce990310c10dfc4076"
   dependencies:
@@ -234,6 +238,10 @@ apollo-client@^2.0.3:
     zen-observable "^0.6.0"
   optionalDependencies:
     "@types/async" "2.0.45"
+
+apollo-link-context@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/apollo-link-context/-/apollo-link-context-1.0.1.tgz#a1a0a53c80abae36fe9cf3685360e0b9c1bb312f"
 
 apollo-link-dedup@^1.0.0:
   version "1.0.2"
@@ -262,11 +270,7 @@ apollo-utilities@^0.2.0-beta.0:
   version "0.2.0-rc.3"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-rc.3.tgz#7bd93be0f587f20c5b46e21880272e305759fdc2"
 
-apollo-utilities@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.1.tgz#34b4df0bd6ed71d0afaa7c62489173dca5d07e92"
-
-apollo-utilities@^1.0.2:
+apollo-utilities@^1.0.0, apollo-utilities@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.2.tgz#bcf348a7e613e82e2624ddb5be2b9f6bf1259c6d"
 
@@ -665,6 +669,12 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
+babel-plugin-dynamic-import-node@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-1.2.0.tgz#f91631e703e0595e47d4beafbb088576c87fbeee"
+  dependencies:
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+
 babel-plugin-istanbul@^4.0.0, babel-plugin-istanbul@^4.1.4:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/babel-plugin-istanbul/-/babel-plugin-istanbul-4.1.5.tgz#6760cdd977f411d3e175bb064f2bc327d99b2b6e"
@@ -848,7 +858,7 @@ babel-plugin-transform-es2015-modules-amd@^6.22.0, babel-plugin-transform-es2015
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.1:
+babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.1, babel-plugin-transform-es2015-modules-commonjs@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.26.0.tgz#0d8394029b7dc6abe1a97ef181e00758dd2e5d8a"
   dependencies:
@@ -1724,6 +1734,14 @@ concat-stream@1.6.0, concat-stream@^1.6.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+condense-newlines@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/condense-newlines/-/condense-newlines-0.2.1.tgz#3de985553139475d32502c83b02f60684d24c55f"
+  dependencies:
+    extend-shallow "^2.0.1"
+    is-whitespace "^0.3.0"
+    kind-of "^3.0.2"
 
 config-chain@~1.1.5:
   version "1.1.11"
@@ -2826,6 +2844,12 @@ express@^4.13.3, express@^4.15.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
+extend-shallow@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/extend-shallow/-/extend-shallow-2.0.1.tgz#51af7d614ad9a9f610ea1bafbb989d6b1c56890f"
+  dependencies:
+    is-extendable "^0.1.0"
+
 extend@3, extend@^3.0.0, extend@~3.0.0, extend@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
@@ -3356,7 +3380,7 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-graphql-anywhere@^4.0.1:
+graphql-anywhere@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-4.0.1.tgz#eb53ed5c56ef42e21d34dc22951e3da38f88a342"
   dependencies:
@@ -3904,7 +3928,7 @@ is-equal-shallow@^0.1.3:
   dependencies:
     is-primitive "^2.0.0"
 
-is-extendable@^0.1.1:
+is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/is-extendable/-/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
 
@@ -4059,6 +4083,10 @@ is-unc-path@^0.1.1:
 is-utf8@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
+
+is-whitespace@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/is-whitespace/-/is-whitespace-0.3.0.tgz#1639ecb1be036aec69a54cbb401cfbed7114ab7f"
 
 is-windows@^0.2.0:
   version "0.2.0"
@@ -4344,6 +4372,12 @@ jest-runtime@^21.2.1:
     write-file-atomic "^2.1.0"
     yargs "^9.0.0"
 
+jest-serializer-vue@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/jest-serializer-vue/-/jest-serializer-vue-0.3.0.tgz#2128d0c1c83c3bcb2f4fb96104402626bb75506d"
+  dependencies:
+    pretty "2.0.0"
+
 jest-snapshot@^21.2.1:
   version "21.2.1"
   resolved "https://registry.yarnpkg.com/jest-snapshot/-/jest-snapshot-21.2.1.tgz#29e49f16202416e47343e757e5eff948c07fd7b0"
@@ -4419,7 +4453,7 @@ js-base64@^2.1.9:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.3.2.tgz#a79a923666372b580f8e27f51845c6f7e8fbfbaf"
 
-js-beautify@^1.6.14:
+js-beautify@^1.6.12, js-beautify@^1.6.14:
   version "1.7.4"
   resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.7.4.tgz#fa0dfa8fef594d6a6253755fe26af5d0a22cbd90"
   dependencies:
@@ -6147,6 +6181,14 @@ pretty-format@^21.2.1:
     ansi-regex "^3.0.0"
     ansi-styles "^3.2.0"
 
+pretty@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pretty/-/pretty-2.0.0.tgz#adbc7960b7bbfe289a557dc5f737619a220d06a5"
+  dependencies:
+    condense-newlines "^0.2.1"
+    extend-shallow "^2.0.1"
+    js-beautify "^1.6.12"
+
 private@^0.1.6, private@^0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
@@ -7717,11 +7759,11 @@ vue-hot-reload-api@^2.2.0:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.2.3.tgz#43c8e5506d65a271d2571936d77253019fd3eb17"
 
-vue-infinite-loading@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.2.1.tgz#91a349c0fde8a1a51befd9d867eafd80c0dc2126"
+vue-infinite-loading@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.2.2.tgz#b08eccf333511d556a659c8ff0d0c908ca1c2ace"
 
-vue-jest@^1.0.2:
+vue-jest@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vue-jest/-/vue-jest-1.0.3.tgz#d8329031c0c250282be407d0460fc0c58d9d5d2b"
   dependencies:
@@ -7766,9 +7808,9 @@ vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.5:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.5.tgz#0cfb47c784f75500d94aa57d2220bb324b59fae0"
+vue-template-compiler@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.7.tgz#21467d78b20a932ad7b89d98b54171a039111a7e"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -7777,13 +7819,13 @@ vue-template-es2015-compiler@^1.5.3, vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@^2.5.5:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.5.tgz#cc3cd9b2a4f1d7356861ae0f71da0e6beb091910"
+vue@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.7.tgz#313ab26025915d9fdbc39db756548cb4bb50eb44"
 
-vuetify@^0.17.1:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.17.1.tgz#9b7f8fe3c541dca9463c9c1d64e1684c0860ac8e"
+vuetify@^0.17.2:
+  version "0.17.2"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.17.2.tgz#600be82ad31087bc35e687233d8d6cd85e8703e5"
 
 vuex-router-sync@^5.0.0:
   version "5.0.0"

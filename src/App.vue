@@ -79,37 +79,38 @@
   </v-app>
 </template>
 
-<script>
-  import { mapGetters } from 'vuex';
+<script lang="ts">
+import Vue from 'vue';
+import { mapGetters } from 'vuex';
 
-  export default {
-    name: 'App',
-    created() {
-      const token = localStorage.getItem('token');
-      if (token) {
-        this.$store.dispatch('login', token);
-      }
+export default Vue.extend({
+  name: 'App',
+  created() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.$store.dispatch('login', token);
+    }
+  },
+  data() {
+    return {
+      logoutDialog: false,
+    };
+  },
+  computed: {
+    ...mapGetters([
+      'me',
+      'currentPath',
+    ]),
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout').then(() => {
+        this.logoutDialog = false;
+        this.$router.push('/');
+      });
     },
-    data() {
-      return {
-        logoutDialog: false,
-      };
-    },
-    computed: {
-      ...mapGetters([
-        'me',
-        'currentPath',
-      ]),
-    },
-    methods: {
-      logout() {
-        this.$store.dispatch('logout').then(() => {
-          this.logoutDialog = false;
-          this.$router.push('/');
-        });
-      },
-    },
-  };
+  },
+});
 </script>
 
 <style scoped>

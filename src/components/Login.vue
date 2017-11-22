@@ -33,8 +33,10 @@
   </v-container>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'Login',
   data() {
     return {
@@ -42,13 +44,13 @@ export default {
     };
   },
   methods: {
-    login(token) {
+    login(token: number) {
       this.$store.dispatch('login', token).then(() => {
         this.$router.push('profile');
       });
     },
   },
-};
+});
 </script>
 
 <style scoped>

@@ -1,17 +1,26 @@
 import Vue from 'vue';
+import {Getter, Action, Mutation, ActionContext} from 'vuex';
 import * as types from '../mutation-types';
+import {RootState} from '../store';
 
-let initialState = {};
-
-if (localStorage.getItem('watchList')) {
-  initialState = JSON.parse(localStorage.getItem('watchList'));
+type WatchListState = {
+  [key: string]: [
+    {
+      id: string,
+      name: string,
+      color: string
+    }
+  ]
 }
 
+const watchList = localStorage.getItem('watchList');
+const initialState = watchList ? JSON.parse(watchList) : {};
+
 const getters = {
-  watchList: state => state,
+  watchList: (state: WatchListState) => state,
 };
 
-const actions = {
+const actions:{[key: string]: Action<WatchListState, RootState>} = {
   toggleWatchRepoLabel({ commit }, { repoNameWithOwner, label }) {
     commit(types.TOGGLE_WATCH_REPO_LABEL, { repoNameWithOwner, label });
   },
@@ -20,7 +29,7 @@ const actions = {
   },
 };
 
-const mutations = {
+const mutations:{[key: string]: Mutation<WatchListState>} = {
   [types.TOGGLE_WATCH_REPO_LABEL](state, { repoNameWithOwner, label }) {
     if (!state[repoNameWithOwner]) {
       Vue.set(state, repoNameWithOwner, [label]);

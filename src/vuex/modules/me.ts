@@ -1,25 +1,34 @@
 import Vue from 'vue';
 import client from '@/apolloClient';
-import Me from '@/graphql/Me.gql';
-import RepositoryLabels from '@/graphql/RepositoryLabels.gql';
+import {Getter, Action, Mutation} from 'vuex';
+// import Me from '@/graphql/Me.gql';
+import Me from '@/graphql/me';
+// import RepositoryLabels from '@/graphql/RepositoryLabels.gql';
+import RepositoryLabels from '@/graphql/RepositoryLabels';
 import router from '@/router';
 import * as types from '../mutation-types';
+import {RootState} from '../store';
+
+type MeState = {
+  isLoggingIn: boolean,
+  data: any,
+}
 
 const initialState = {
   isLoggingIn: false,
-  data: undefined,
+  data: null,
 };
 
-const getters = {
+const getters:{[key: string]: Getter<MeState, RootState>} = {
   isLoggingIn: state => state.isLoggingIn,
   me: state => state.data,
 };
 
-const actions = {
+const actions:{[key: string]: Action<MeState, RootState>} = {
   login({ commit }, token) {
     commit(types.LOGIN);
     localStorage.setItem('token', token);
-    return client.query({ query: Me }).then(({ data }) => {
+    return client.query({ query: Me }).then(({ data }:{data: any}) => {
       commit(types.LOGIN_SUCCESS, data);
     }).catch(() => {
       router.push('/');
@@ -38,19 +47,19 @@ const actions = {
       name: repoName,
       after: endCursor,
     };
-    return client.query({ query: RepositoryLabels, variables }).then(({ data }) => {
+    return client.query({ query: RepositoryLabels, variables }).then(({ data }:{data: any}) => {
       commit(types.LOAD_MORE_LABELS, data);
     });
   },
   loadMoreStarredRepos({ commit }, endCursor) {
-    return client.query({ query: Me, variables: { after: endCursor } }).then(({ data }) => {
+    return client.query({ query: Me, variables: { after: endCursor } }).then(({ data }:{data: any}) => {
       commit(types.LOAD_MORE_STARRED_REPOS, data);
       return data.viewer.starredRepositories.pageInfo;
     });
   },
 };
 
-const mutations = {
+const mutations:{[key: string]: Mutation<MeState>} = {
   [types.LOGIN](state) {
     state.isLoggingIn = true;
   },
@@ -69,7 +78,7 @@ const mutations = {
     state.isLoggingIn = false;
   },
   [types.LOAD_MORE_LABELS](state, data) {
-    const newNodes = state.data.starredRepositories.nodes.map((repo) => {
+    const newNodes = state.data.starredRepositories.nodes.map((repo:any) => {
       if (repo.nameWithOwner === data.repository.nameWithOwner) {
         return {
           ...data.repository,

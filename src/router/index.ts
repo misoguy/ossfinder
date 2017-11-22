@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
-import Login from '@/components/Login';
-import Profile from '@/components/Profile';
-import Issues from '@/components/Issues';
+import Home from '@/components/Home.vue';
+import Login from '@/components/Login.vue';
+import Profile from '@/components/Profile.vue';
+import Issues from '@/components/Issues.vue';
 
 Vue.use(Router);
 

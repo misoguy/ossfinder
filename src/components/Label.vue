@@ -9,15 +9,12 @@
   </button>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'Label',
-  props: {
-    name: !String,
-    color: !String,
-    isSelected: Boolean,
-    onClick: Function,
-  },
+  props: ['name', 'color', 'isSelected', 'onClick'],
   computed: {
     fontColor() {
       const r = parseInt(this.color.substr(0, 2), 16);
@@ -34,7 +31,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style scoped>

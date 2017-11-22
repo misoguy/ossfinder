@@ -7,6 +7,8 @@ import modules from './modules';
 
 Vue.use(Vuex);
 
+export type RootState = {};
+
 export default new Vuex.Store({
   // actions,
   getters,
