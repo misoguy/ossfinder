@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import {Getter, Action, Mutation} from 'vuex';
+import { Getter, Action, Mutation } from 'vuex';
 import client from '@/apolloClient';
 // import RepositoryIssues from '@/graphql/RepositoryIssues.gql';
 import RepositoryIssues from '@/graphql/RepositoryIssues';
 
-import {RootState} from '../store';
+import { RootState } from '../store';
 import * as types from '../mutation-types';
 
 type IssueType = {
@@ -16,13 +16,14 @@ type IssueType = {
   bodyHTML: string,
   totalComments: number,
   labels: any[],
-  createdAt: string
-}
+  createdAt: string,
+};
 
 type IssuesState = {
   isFetchingIssues: boolean,
   data: IssueType[],
-}
+};
+
 const initialState = {
   isFetchingIssues: false,
   data: [],

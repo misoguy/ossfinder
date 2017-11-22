@@ -12,8 +12,8 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `bearer ${token}` : null,
-    }
-  }
+    },
+  };
 });
 
 const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });

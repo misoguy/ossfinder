@@ -1,17 +1,17 @@
 import Vue from 'vue';
-import {Getter, Action, Mutation, ActionContext} from 'vuex';
+import { Getter, Action, Mutation, ActionContext } from 'vuex';
 import * as types from '../mutation-types';
-import {RootState} from '../store';
+import { RootState } from '../store';
 
 type WatchListState = {
   [key: string]: [
     {
       id: string,
       name: string,
-      color: string
+      color: string,
     }
-  ]
-}
+  ],
+};
 
 const watchList = localStorage.getItem('watchList');
 const initialState = watchList ? JSON.parse(watchList) : {};
