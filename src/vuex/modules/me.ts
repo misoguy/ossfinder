@@ -2,7 +2,7 @@ import Vue from 'vue';
 import client from '@/apolloClient';
 import { Getter, Action, Mutation } from 'vuex';
 // import Me from '@/graphql/Me.gql';
-import Me from '@/graphql/me';
+import Me from '@/graphql/Me';
 // import RepositoryLabels from '@/graphql/RepositoryLabels.gql';
 import RepositoryLabels from '@/graphql/RepositoryLabels';
 import router from '@/router';
