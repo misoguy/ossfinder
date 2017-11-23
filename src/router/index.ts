@@ -21,8 +21,8 @@ export default new Router({
       component: Login,
     },
     {
-      path: '/profile',
-      name: 'profile',
+      path: '/oss',
+      name: 'oss',
       component: Profile,
       beforeEnter: (to, from, next) => {
         const token = localStorage.getItem('token');
