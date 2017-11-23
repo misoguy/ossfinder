@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home.vue';
 import Login from '@/components/Login.vue';
-import Oss from '@/components/Oss.vue';
+import Repositories from '@/components/Repositories.vue';
 import Watching from '@/components/Watching.vue';
 import Starred from '@/components/Starred.vue';
 import Search from '@/components/Search.vue';
@@ -25,12 +25,12 @@ export default new Router({
       component: Login,
     },
     {
-      path: '/oss',
-      name: 'oss',
-      component: Oss,
+      path: '/repositories',
+      component: Repositories,
       children: [
         {
           path: '',
+          name: 'repositories',
           component: Watching,
         },
         {

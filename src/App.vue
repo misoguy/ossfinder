@@ -11,7 +11,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat color="teal" exact to="/">Home</v-btn>
         <template v-if="me">
-          <v-btn flat color="teal" to="/oss">OSS</v-btn>
+          <v-btn flat color="teal" to="/repositories">Repositories</v-btn>
           <v-btn flat color="teal" to="/issues">Issues</v-btn>
           <v-btn flat color="teal" @click.stop="logoutDialog = true">Logout</v-btn>
         </template>
@@ -35,8 +35,8 @@
         <v-icon>home</v-icon>
       </v-btn>
       <template v-if="me">
-        <v-btn flat color="teal" value="/oss" to="/oss">
-          <span>OSS</span>
+        <v-btn flat color="teal" value="/repositories" to="/repositories">
+          <span>Repos</span>
           <v-icon>developer_mode</v-icon>
         </v-btn>
         <v-btn flat color="teal" value="/issues" to="/issues">

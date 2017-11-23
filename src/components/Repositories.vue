@@ -1,5 +1,5 @@
 <template>
-  <div id="oss">
+  <div v-if="me && me.login" id="oss">
     <v-container class="hidden-sm-and-down" text-xs-center>
       <h1>
         Hello {{me.login}}
@@ -12,19 +12,19 @@
       <v-tabs-bar>
         <v-tabs-item
           router
-          to="/oss/watching"
+          to="/repositories/watching"
         >
           Watching
         </v-tabs-item>
         <v-tabs-item
           router
-          to="/oss/starred"
+          to="/repositories/starred"
         >
           Starred
         </v-tabs-item>
         <v-tabs-item
           router
-          to="/oss/search"
+          to="/repositories/search"
         >
           Search
         </v-tabs-item>
@@ -32,7 +32,9 @@
       </v-tabs-bar>
     </v-tabs>
     <v-container grid-list-md>
-      <router-view />
+      <v-flex xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4>
+        <router-view />
+      </v-flex>
     </v-container>
   </div>
 </template>
