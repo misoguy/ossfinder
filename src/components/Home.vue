@@ -7,7 +7,9 @@
       <img width="100%" src="../assets/oss.png" />
     </v-layout>
     <v-layout column align-center justify-center class="contribute">
-      <h3>OSS Finder is also open source</h3>
+      <h3>OSS Finder is also open source!</h3>
+      <h3>Feel free to send bug reports,</h3>
+      <h3>request features or contribute</h3>
       <v-btn
         href="https://github.com/misoguy/ossfinder"
         target="_blank"
@@ -15,7 +17,7 @@
         round
       >
         <img height="100%" src="../assets/GitHub.png" class="github-icon" />
-        CONTRIBUTE ON GITHUB
+        TO OSS FINDER ON GITHUB
       </v-btn>
     </v-layout>
   </div>
