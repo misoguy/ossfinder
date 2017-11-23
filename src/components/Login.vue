@@ -57,7 +57,7 @@ export default Vue.extend({
   methods: {
     login() {
       this.$store.dispatch('login', this.token).then(() => {
-        this.$router.push('profile');
+        this.$router.push('oss');
       });
     },
   },
