@@ -7,6 +7,7 @@ import Watching from '@/components/Watching.vue';
 import Starred from '@/components/Starred.vue';
 import Search from '@/components/Search.vue';
 import Issues from '@/components/Issues.vue';
+import NotFoundComponent from '@/components/404.vue';
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/issues',
       name: 'issues',
       component: Issues,
+    },
+    {
+      path: '*',
+      name: '404',
+      component: NotFoundComponent,
     },
   ],
 });
