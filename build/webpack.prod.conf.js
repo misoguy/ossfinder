@@ -122,7 +122,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsRoot
       }
     ]),
-    new FaviconsWebpackPlugin(path.resolve(__dirname, '../static/oss_icon.png'))
+    new FaviconsWebpackPlugin(path.resolve(__dirname, '../src/assets/oss_icon.png'))
   ]
 })
 
