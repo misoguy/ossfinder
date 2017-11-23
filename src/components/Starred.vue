@@ -1,35 +1,22 @@
 <template>
-  <div v-if="me && me.login" class="profile">
-    <v-container text-xs-center>
-      <h1>
-        Hello {{me.login}}
-      </h1>
-      <v-avatar size="100px">
-        <img :src="me.avatarUrl" alt="avatar">
-      </v-avatar>
-    </v-container>
-    <v-container grid-list-md>
-      <h2>
-        Your Starred Repositories
-      </h2>
-      <v-layout row wrap>
-        <v-flex
-          xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4
-          v-for="repo in me.starredRepositories.nodes"
-          :key="repo.url"
-        >
-          <repo-card :repo="repo"/>
-        </v-flex>
-      </v-layout>
-      <infinite-loading
-        @infinite="infiniteHandler"
-        spinner="waveDots"
+  <div v-if="me && me.login">
+    <v-layout row wrap>
+      <v-flex
+        xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4
+        v-for="repo in me.starredRepositories.nodes"
+        :key="repo.url"
       >
-        <span slot="no-more">
-          No more starred repository
-        </span>
-      </infinite-loading>
-    </v-container>
+        <repo-card :repo="repo"/>
+      </v-flex>
+    </v-layout>
+    <infinite-loading
+      @infinite="infiniteHandler"
+      spinner="waveDots"
+    >
+      <span slot="no-more">
+        No more starred repository
+      </span>
+    </infinite-loading>
   </div>
 </template>
 
@@ -41,7 +28,7 @@ import { IPageInfo } from '../graphql/interfaces';
 import RepositoryCard from './RepositoryCard.vue';
 
 export default Vue.extend({
-  name: 'Profile',
+  name: 'Starred',
   components: {
     repoCard: RepositoryCard,
     InfiniteLoading,
@@ -68,9 +55,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style scoped>
-  h2 {
-    text-align: center;
-  }
-</style>
