@@ -23,7 +23,7 @@
               href="https://github.com/settings/tokens/new"
               target="_blank"
             >
-              <img src="static/Github.png">
+              <img src="../assets/GitHub.png" />
               Get token from Github
             </v-btn>
           </v-card-text>

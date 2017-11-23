@@ -4,7 +4,7 @@
       <h1>Find issues & Contribute</h1>
       <h2>To your favorite OPEN SOURCE SOFTWARES</h2>
       <v-btn color="blue-grey" dark to="/login">START BY LOGIN</v-btn>
-      <img width="100%" src="static/oss.png" />
+      <img width="100%" src="../assets/oss.png" />
     </v-layout>
     <v-layout column align-center justify-center class="contribute">
       <h3>OSS Finder is also open source</h3>
@@ -14,7 +14,7 @@
         color="secondary"
         round
       >
-        <img height="100%" src="static/Github.png" class="github-icon">
+        <img height="100%" src="../assets/GitHub.png" class="github-icon" />
         CONTRIBUTE ON GITHUB
       </v-btn>
     </v-layout>

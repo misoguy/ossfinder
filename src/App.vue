@@ -5,7 +5,7 @@
       fixed
     >
       <router-link class="logo" to="/">
-        <img src="/static/title_logo.svg" />
+        <img src="./assets/title_logo.svg" />
       </router-link>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
