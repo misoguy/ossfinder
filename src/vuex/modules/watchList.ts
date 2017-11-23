@@ -1,16 +1,15 @@
 import Vue from 'vue';
 import { Getter, Action, Mutation, ActionContext } from 'vuex';
+import { xor } from 'lodash';
 import * as types from '../mutation-types';
+import { IRepository, ILabel } from '../interfaces';
 import { RootState } from '../store';
 
 type WatchListState = {
-  [key: string]: [
-    {
-      id: string,
-      name: string,
-      color: string,
-    }
-  ],
+  [repoNameWithOwner: string]: {
+    repo: IRepository,
+    labels: ILabel[],
+  },
 };
 
 const watchList = localStorage.getItem('watchList');
@@ -21,8 +20,8 @@ const getters = {
 };
 
 const actions:{[key: string]: Action<WatchListState, RootState>} = {
-  toggleWatchRepoLabel({ commit }, { repoNameWithOwner, label }) {
-    commit(types.TOGGLE_WATCH_REPO_LABEL, { repoNameWithOwner, label });
+  toggleWatchRepoLabel({ commit }, { repo, label }) {
+    commit(types.TOGGLE_WATCH_REPO_LABEL, { repo, label });
   },
   clearAllLabels({ commit }, { repoNameWithOwner }) {
     commit(types.CLEAR_ALL_LABELS, { repoNameWithOwner });
@@ -30,16 +29,13 @@ const actions:{[key: string]: Action<WatchListState, RootState>} = {
 };
 
 const mutations:{[key: string]: Mutation<WatchListState>} = {
-  [types.TOGGLE_WATCH_REPO_LABEL](state, { repoNameWithOwner, label }) {
-    if (!state[repoNameWithOwner]) {
-      Vue.set(state, repoNameWithOwner, [label]);
+  [types.TOGGLE_WATCH_REPO_LABEL](state, { repo, label }) {
+    if (!state[repo.nameWithOwner]) {
+      Vue.set(state, repo.nameWithOwner, { repo, labels: [label] });
     } else {
-      const labels = state[repoNameWithOwner].filter(l => l.id !== label.id);
-      if (labels.length === state[repoNameWithOwner].length) {
-        labels.push(label);
-      }
-      Vue.set(state, repoNameWithOwner, labels);
-      // Vue.delete(state[repoNameWithOwner], labelId);
+      const watchingRepo = state[repo.nameWithOwner];
+      const labels = xor(watchingRepo.labels, [label]);
+      state[repo.nameWithOwner].labels = labels;
     }
     localStorage.setItem('watchList', JSON.stringify(state));
   },

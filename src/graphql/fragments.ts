@@ -19,10 +19,9 @@ export default {
   `,
   repository: gql`
     fragment repository on Repository {
-      name
+      id
       nameWithOwner
       url
-      description
       descriptionHTML
     }
   `,

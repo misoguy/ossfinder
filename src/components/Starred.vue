@@ -1,14 +1,10 @@
 <template>
-  <div v-if="me && me.login">
-    <v-layout row wrap>
-      <v-flex
-        xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4
-        v-for="repo in me.starredRepositories.nodes"
-        :key="repo.url"
-      >
-        <repo-card :repo="repo"/>
-      </v-flex>
-    </v-layout>
+  <v-layout column>
+    <repo-card
+      v-for="repo in me.starredRepositories.nodes"
+      :key="repo.url"
+      :repo="repo"
+    />
     <infinite-loading
       @infinite="infiniteHandler"
       spinner="waveDots"
@@ -17,14 +13,14 @@
         No more starred repository
       </span>
     </infinite-loading>
-  </div>
+  </v-layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import InfiniteLoading from 'vue-infinite-loading';
-import { IPageInfo } from '../graphql/interfaces';
+import { IPageInfo } from '../vuex/interfaces';
 import RepositoryCard from './RepositoryCard.vue';
 
 export default Vue.extend({

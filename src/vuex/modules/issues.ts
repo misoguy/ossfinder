@@ -44,7 +44,7 @@ const actions:{[key: string]: Action<IssuesState, RootState>} = {
     nameWithOwnerList.forEach((nameWithOwner) => {
       const [owner, repoName] = nameWithOwner.split('/');
       const watchRepo = watchList[nameWithOwner];
-      const labels = watchRepo.map((l:any) => l.name);
+      const labels = watchRepo.labels.map((l:any) => l.name);
 
       const variables = {
         owner,

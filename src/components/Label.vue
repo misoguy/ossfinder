@@ -2,7 +2,7 @@
   <button
     :style="{backgroundColor: `#${color}`, color: fontColor}"
     class="label-btn"
-    @click="handleClick"
+    @click="clicked"
   >
     <v-icon v-if="isSelected" :style="{color: fontColor}">visibility</v-icon>
     {{name}}
@@ -25,10 +25,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    handleClick() {
-      if (typeof this.onClick === 'function') {
-        this.onClick();
-      }
+    clicked() {
+      this.$emit('clicked');
     },
   },
 });
