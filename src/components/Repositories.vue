@@ -10,11 +10,15 @@
     </v-container>
     <v-tabs fixed centered>
       <v-tabs-bar>
+        <v-tabs-slider />
         <v-tabs-item
           router
           to="/repositories/watching"
         >
-          Watching
+          <v-badge color="blue-grey">
+            <span class="label">Watching</span>
+            <span slot="badge">{{watchListCount}}</span>
+          </v-badge>
         </v-tabs-item>
         <v-tabs-item
           router
@@ -28,7 +32,6 @@
         >
           Search
         </v-tabs-item>
-        <v-tabs-slider />
       </v-tabs-bar>
     </v-tabs>
     <v-container grid-list-md>
@@ -47,6 +50,7 @@ export default Vue.extend({
   name: 'Oss',
   computed: mapGetters([
     'me',
+    'watchListCount',
   ]),
 });
 </script>

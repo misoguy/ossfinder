@@ -23,6 +23,7 @@ export default {
       nameWithOwner
       url
       descriptionHTML
+      viewerHasStarred
     }
   `,
 };

@@ -88,7 +88,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Label from './Label.vue';
 import { ILabel, IRepository } from '../vuex/interfaces';
 
@@ -107,17 +107,11 @@ export default Vue.extend({
     'watchList',
   ]),
   methods: {
-    toggleWatchRepoLabel({ repo, label }
-    : { repo: IRepository, label: ILabel }) {
-      this.$store.dispatch('toggleWatchRepoLabel', { repo, label });
-    },
-    loadMoreLabels({ repoNameWithOwner, endCursor }
-    : { repoNameWithOwner: string, endCursor: string }) {
-      this.$store.dispatch('loadMoreLabels', { repoNameWithOwner, endCursor });
-    },
-    clearAllLabels(repoNameWithOwner: string) {
-      this.$store.dispatch('clearAllLabels', { repoNameWithOwner });
-    },
+    ...mapActions([
+      'toggleWatchRepoLabel',
+      'loadMoreLabels',
+      'clearAllLabels',
+    ]),
   },
 });
 </script>
