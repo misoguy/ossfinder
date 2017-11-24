@@ -9,7 +9,7 @@
         <p>
           It seems like there are no issues regarding your watch list.
         </p>
-        <v-btn to="/profile">Add more repositories to watch</v-btn>
+        <v-btn to="/repositories">Add more repositories to watch</v-btn>
       </v-flex>
       <v-flex
         v-else

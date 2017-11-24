@@ -1,13 +1,19 @@
 <template>
   <div>
-    <div v-if="isListEmpty">
-      Empty List
-      <v-btn to="/repositories/starred">ADD LABELS FROM STARRED</v-btn>
-      <v-btn to="/repositories/search">SEARCH REPO TO WATCH</v-btn>
-    </div>
+    <v-layout
+      v-if="isListEmpty"
+      column
+      align-center
+    >
+      <p class="empty-list">You have no watching repositories</p>
+      <v-btn to="/repositories/starred">ADD FROM STARRED REPOSITORIES</v-btn>
+      <v-btn to="/repositories/search">SEARCH REPOSITORIES TO WATCH</v-btn>
+    </v-layout>
     <div v-else>
-      <div>
+      <v-layout justify-end>
         <v-btn
+          flat
+          color="red"
           @click="
             selectedRepo = null;
             showConfirmDialog = true;
@@ -15,7 +21,7 @@
         >
           Clear all
         </v-btn>
-      </div>
+      </v-layout>
       <v-layout column>
         <v-flex v-for="(watch, index) in watchList" :key="index">
           <v-card>
@@ -41,15 +47,20 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-card-actions>
-              <v-flex row wrap>
+              <v-layout row wrap>
                 <repo-label
                   v-for="label in watch.labels"
                   :key="label.id"
                   :name="label.name"
                   :color="label.color"
+                  :showRemoveButton="true"
+                  @remove="clearLabelFromRepo({
+                    repoNameWithOwner: watch.repo.nameWithOwner,
+                    label
+                  })"
                 >
                 </repo-label>
-              </v-flex>
+              </v-layout>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -128,7 +139,13 @@ export default Vue.extend({
       }
       this.showConfirmDialog = false;
     },
-    ...mapActions(['clearAllLabels', 'clearAllWatchList']),
+    ...mapActions(['clearAllLabels', 'clearAllWatchList', 'clearLabelFromRepo']),
   },
 });
 </script>
+
+<style scoped>
+  .empty-list {
+    margin-top: 2rem;
+  }
+</style>

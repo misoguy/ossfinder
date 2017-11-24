@@ -15,8 +15,10 @@
           router
           to="/repositories/watching"
         >
+          <span class="label">
+            Watching
+          </span>
           <v-badge color="blue-grey">
-            <span class="label">Watching</span>
             <span slot="badge">{{watchListCount}}</span>
           </v-badge>
         </v-tabs-item>
@@ -54,3 +56,9 @@ export default Vue.extend({
   ]),
 });
 </script>
+
+<style scoped>
+  .label {
+    margin-right: 0.3rem;
+  }
+</style>

@@ -1,4 +1,4 @@
-[<img height="100px" src="static/title_logo.svg" alt="OSS Finder" />](https://ossfinder.netlify.com)
+[<img height="100px" src="src/assets/title_logo.svg" alt="OSS Finder" />](https://ossfinder.netlify.com)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![Circle CI](https://circleci.com/gh/misoguy/ossfinder.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/misoguy/ossfinder) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 > Open Source Software Finder
