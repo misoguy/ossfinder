@@ -4,8 +4,8 @@ import fragments from './fragments';
 export default gql`
 ${fragments.repository}
 ${fragments.label}
-query SearchRepositories($query: String!, $after: String) {
-  search(type: REPOSITORY query: $query first: 10 after: $after) {
+query SearchRepositories($q: String!, $after: String) {
+  search(type: REPOSITORY query: $q first: 10 after: $after) {
     pageInfo {
       endCursor
       hasNextPage

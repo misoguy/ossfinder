@@ -49,7 +49,7 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 
 export default Vue.extend({
-  name: 'Oss',
+  name: 'Repositories',
   computed: mapGetters([
     'me',
     'watchListCount',
