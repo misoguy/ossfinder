@@ -13,7 +13,8 @@
         <v-text-field
           v-model="searchText"
           label="Repository"
-        ></v-text-field>
+          @keyup.native="onKeyUp"
+        />
       </v-flex>
       <v-spacer />
       <v-flex>
@@ -22,7 +23,10 @@
         </v-btn>
       </v-flex>
     </v-layout>
-    <v-layout column>
+    <v-layout v-if="isLoading" justify-center>
+      <v-progress-circular indeterminate color="primary" />
+    </v-layout>
+    <v-layout v-else column>
       <repo-card
         v-for="repo in repositories.nodes"
         :key="repo.url"
@@ -53,6 +57,7 @@ import client from '@/apolloClient';
 import RepositoryCard from './RepositoryCard.vue';
 
 type Data = {
+  isLoading: boolean,
   repoName: string,
   searchText: string,
   languages: any[],
@@ -72,6 +77,7 @@ export default Vue.extend({
   },
   data(): Data {
     return {
+      isLoading: true,
       repoName: '',
       searchText: '',
       languages: githubLanguages,
@@ -93,9 +99,16 @@ export default Vue.extend({
     },
   },
   methods: {
+    onKeyUp(e: KeyboardEvent) {
+      const ENTER = 13;
+      if (e.keyCode === ENTER) {
+        this.searchRepos();
+      }
+    },
     searchRepos() {
       this.repoName = this.searchText;
       this.qualifiers = this.filters;
+      this.isLoading = true;
       client.query({
         query: SearchRepositories,
         variables: {
@@ -104,6 +117,7 @@ export default Vue.extend({
       }).then(({ data }:{data:any}) => {
         this.repositories.nodes = data.search.nodes;
         this.repositories.pageInfo = data.search.pageInfo;
+        this.isLoading = false;
       });
     },
     infiniteHandler($state: any) {
