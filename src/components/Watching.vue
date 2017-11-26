@@ -53,7 +53,7 @@
                   :key="label.id"
                   :name="label.name"
                   :color="label.color"
-                  :showRemoveButton="true"
+                  :show-remove-button="true"
                   @remove="clearLabelFromRepo({
                     repoNameWithOwner: watch.repo.nameWithOwner,
                     label

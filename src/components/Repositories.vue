@@ -36,7 +36,7 @@
         </v-tabs-item>
       </v-tabs-bar>
     </v-tabs>
-    <v-container grid-list-md>
+    <v-container grid-list-sm>
       <v-flex xs12 offset-sm2 sm8 offset-md3 md6 offset-xl4 xl4>
         <router-view />
       </v-flex>

@@ -40,6 +40,10 @@ describe('githubQueryBuilder', () => {
       const result = githubQueryBuilder('ossfinder', { mirror: true });
       expect(result).toBe('ossfinder mirror:true');
     });
+    it('should remove qualifier key if value is not present', () => {
+      const result = githubQueryBuilder('ossfinder', { language: '' });
+      expect(result).toBe('ossfinder');
+    });
   });
   describe('with multiple qualifiers', () => {
     it('should return with "in:name size:>5" qualifier', () => {

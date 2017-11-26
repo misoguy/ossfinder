@@ -7,6 +7,7 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
+            autofocus
             label="Personal access tokens"
             placeholder="Enter Personal access tokens"
             v-model="token"

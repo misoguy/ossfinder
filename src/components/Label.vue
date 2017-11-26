@@ -46,7 +46,7 @@ export default Vue.extend({
     flex: 0 0 auto;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    margin: 0.3rem;
+    margin: 3px;
     font-weight: 600;
     display: flex;
     justify-content: space-between;

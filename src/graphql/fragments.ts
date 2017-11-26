@@ -24,6 +24,14 @@ export default {
       url
       descriptionHTML
       viewerHasStarred
+      stargazers {
+        totalCount
+      }
+      primaryLanguage {
+        id
+        name
+        color
+      }
     }
   `,
 };

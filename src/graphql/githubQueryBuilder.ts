@@ -69,12 +69,14 @@ type Comparator = {
 
 const addAllComparator = (query: string, qualifiers: IQualifiers): string => {
   let result = query;
-  Object.keys(qualifiers).forEach((key) => {
-    const qualifier = qualifiers[key];
+  Object.keys(qualifiers).forEach((qualifierKey) => {
+    const qualifier = qualifiers[qualifierKey];
     if (typeof qualifier === 'object') {
-      result = addComparatorQualifier(result, key, (<Comparator>qualifier));
+      result = addComparatorQualifier(result, qualifierKey, (<Comparator>qualifier));
     } else {
-      result += ` ${key}:${qualifier}`;
+      if (qualifier && qualifier.toString().trim() !== '') {
+        result += ` ${qualifierKey}:${qualifier}`;
+      }
     }
   });
   return result;
@@ -111,7 +113,7 @@ const builder = (query: string, qualifiers?:IQualifiers): string => {
   if (!qualifiers) {
     return query;
   }
-  return addAllComparator(query, qualifiers);
+  return addAllComparator(query, qualifiers).trim();
 };
 
 export default builder;

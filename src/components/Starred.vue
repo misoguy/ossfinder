@@ -3,7 +3,7 @@
     <repo-card
       v-for="repo in me.starredRepositories.nodes"
       :key="repo.url"
-      :repo="repo"
+      :initial-repo="repo"
     />
     <infinite-loading
       @infinite="infiniteHandler"
