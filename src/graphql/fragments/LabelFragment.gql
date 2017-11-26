@@ -1,5 +1,0 @@
-fragment label on Label {
-  id
-  name
-  color  
-}
