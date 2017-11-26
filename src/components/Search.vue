@@ -1,16 +1,26 @@
 <template>
   <div>
-    <v-text-field v-model="searchText" />
-    <v-layout row>
-      <v-select
-        v-bind:items="languages"
-        v-model="filters.language"
-        label="Languages"
-        autocomplete
-        single-line
-        bottom
-      />
-      <v-btn @click="searchRepos">Search</v-btn>
+    <v-layout row align-center>
+      <v-flex xs5 md6>
+        <v-select
+          v-bind:items="languages"
+          v-model="filters.language"
+          label="Language"
+          autocomplete
+        />
+      </v-flex>
+      <v-flex xs5 md6>
+        <v-text-field
+          v-model="searchText"
+          label="Repository"
+        ></v-text-field>
+      </v-flex>
+      <v-spacer />
+      <v-flex>
+        <v-btn icon dark color="green" @click="searchRepos">
+          <v-icon>search</v-icon>
+        </v-btn>
+      </v-flex>
     </v-layout>
     <v-layout column>
       <repo-card
