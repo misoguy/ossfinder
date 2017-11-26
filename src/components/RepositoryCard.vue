@@ -138,6 +138,7 @@ import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import { cloneDeep } from 'lodash';
 import client from '@/apolloClient';
+import RepositoryLabels from '@/graphql/RepositoryLabels';
 import StarRepository from '@/graphql/StarRepository';
 import UnstarRepository from '@/graphql/UnstarRepository';
 
@@ -200,7 +201,20 @@ export default Vue.extend({
       }
     },
     loadMoreRepoLabels() {
-      console.log('loadmore');
+      const [owner, repoName] = this.repo.nameWithOwner.split('/');
+      const variables = {
+        owner,
+        name: repoName,
+        after: this.repo.labels.pageInfo.endCursor,
+      };
+      client.query({
+        query: RepositoryLabels,
+        variables,
+      }).then(({ data }: { data: any }) => {
+        const { nodes, pageInfo } = data.repository.labels;
+        this.repo.labels.nodes = this.repo.labels.nodes.concat(nodes);
+        this.repo.labels.pageInfo = pageInfo;
+      });
     },
     ...mapActions([
       'toggleWatchRepoLabel',
@@ -214,6 +228,7 @@ export default Vue.extend({
   .star-btn {
     margin: 6px 8px;
     display: flex;
+    align-items: center;
   }
   .star-btn i {
     font-size: 1.2rem;
