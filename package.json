@@ -5,14 +5,19 @@
   "author": "Soo Jae Hwang <misoguy1985@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "dev":
+      "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "yarn run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
+    "test": "yarn run unit && yarn run e2e",
+    "lint": "tslint -p . -t codeFrame",
     "build": "node build/build.js",
-    "deploy": "netlify deploy -t $NETLIFY_TOKEN"
+    "deploy": "yarn run unit && yarn run build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,css}": ["prettier --write", "git add"]
   },
   "dependencies": {
     "apollo-cache-inmemory": "1.0.0",
@@ -97,11 +102,7 @@
   },
   "engines": {
     "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "yarn": ">= 3.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }
