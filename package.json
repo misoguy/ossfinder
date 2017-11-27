@@ -13,7 +13,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "tslint -p . -t codeFrame",
     "build": "node build/build.js",
-    "deploy": "netlify deploy -t $NETLIFY_TOKEN",
+    "deploy": "npm run test && npm run build",
     "precommit": "lint-staged"
   },
   "lint-staged": {
