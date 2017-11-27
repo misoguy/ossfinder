@@ -33,6 +33,9 @@ const actions: { [key: string]: Action<IWatchListState, IRootState> } = {
   clearAllWatchList({ commit }) {
     commit(types.CLEAR_ALL_WATCH_LIST);
   },
+  importWatchList({ commit }, importObject: IWatchListState) {
+    commit(types.IMPORT_WATCH_LIST, importObject);
+  },
 };
 
 const mutations: { [key: string]: Mutation<IWatchListState> } = {
@@ -68,6 +71,15 @@ const mutations: { [key: string]: Mutation<IWatchListState> } = {
   [types.CLEAR_ALL_WATCH_LIST](state) {
     Object.keys(state).forEach(repoNameWithOwner => {
       Vue.delete(state, repoNameWithOwner);
+    });
+    localStorage.setItem('watchList', JSON.stringify(state));
+  },
+  [types.IMPORT_WATCH_LIST](state, importObject) {
+    Object.keys(state).forEach(repoNameWithOwner => {
+      Vue.delete(state, repoNameWithOwner);
+    });
+    Object.keys(importObject).forEach(repoNameWithOwner => {
+      Vue.set(state, repoNameWithOwner, importObject[repoNameWithOwner]);
     });
     localStorage.setItem('watchList', JSON.stringify(state));
   },

@@ -1,5 +1,59 @@
 <template>
   <div>
+    <v-layout justify-end>
+      <v-menu
+        offset-y
+        bottom
+        left
+        :close-on-content-click="false"
+        v-model="showExportMenu"
+        @click.native="exportWatchList"
+      >
+        <v-btn color="blue-grey" small outline slot="activator">EXPORT</v-btn>
+        <v-card>
+          <v-layout row>
+            <input ref="exportString" readonly class="export-string" v-model="exportString" />
+            <v-btn small icon @click="copyToClipboard">
+              <v-icon>content_copy</v-icon>
+            </v-btn>
+          </v-layout>
+          <v-card-text v-if="copySuccess" class="primary--text text-xs-right">
+            {{copySuccess}}
+          </v-card-text>
+        </v-card>
+      </v-menu>
+      <v-menu
+        offset-y
+        bottom
+        left
+        :close-on-content-click="false"
+        v-model="showImportMenu"
+      >
+        <v-btn color="blue-grey" small outline slot="activator">IMPORT</v-btn>
+        <v-card>
+          <v-layout row>
+            <input class="export-string" placeholder="Enter import string" v-model="importString" />
+            <v-btn small icon color="primary" @click="importStart">
+              <v-icon>keyboard_return</v-icon>
+            </v-btn>
+          </v-layout>
+          <v-card-text v-if="importError" class="error--text text-xs-right">
+            ERROR: {{importError}}
+          </v-card-text>
+        </v-card>
+      </v-menu>
+      <v-btn
+        small
+        color="red"
+        outline
+        @click="
+          selectedRepo = null;
+          showConfirmDialog = true;
+        "
+      >
+        Clear all
+      </v-btn>
+    </v-layout>
     <v-layout
       v-if="isListEmpty"
       column
@@ -10,18 +64,6 @@
       <v-btn to="/repositories/search">SEARCH REPOSITORIES TO WATCH</v-btn>
     </v-layout>
     <div v-else>
-      <v-layout justify-end>
-        <v-btn
-          flat
-          color="red"
-          @click="
-            selectedRepo = null;
-            showConfirmDialog = true;
-          "
-        >
-          Clear all
-        </v-btn>
-      </v-layout>
       <v-layout column>
         <v-flex v-for="(watch, index) in watchList" :key="index">
           <v-card>
@@ -65,42 +107,42 @@
           </v-card>
         </v-flex>
       </v-layout>
-      <v-dialog
-        v-model="showConfirmDialog"
-        max-width="340px"
-      >
-        <v-card>
-          <v-card-title>
-            <v-layout justify-center>
-              <span v-if="selectedRepo">
-                Are you sure to clear all watching labels from [ {{selectedRepo}} ]?
-              </span>
-              <span v-else>
-                Are you sure to clear all watch list?
-              </span>
-            </v-layout>
-          </v-card-title>
-          <v-card-actions>
-            <v-layout justify-center>
-              <v-btn
-                outline
-                color="red"
-                @click.stop="clear"
-              >
-                CLEAR
-              </v-btn>
-              <v-btn
-                outline
-                color="primary"
-                @click.stop="showConfirmDialog=false"
-              >
-                Close
-              </v-btn>
-            </v-layout>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </div>
+    <v-dialog
+      v-model="showConfirmDialog"
+      max-width="340px"
+    >
+      <v-card>
+        <v-card-title>
+          <v-layout justify-center>
+            <span v-if="selectedRepo">
+              Are you sure to clear all watching labels from [ {{selectedRepo}} ]?
+            </span>
+            <span v-else>
+              Are you sure to clear all watch list?
+            </span>
+          </v-layout>
+        </v-card-title>
+        <v-card-actions>
+          <v-layout justify-center>
+            <v-btn
+              outline
+              color="red"
+              @click.stop="clear"
+            >
+              CLEAR
+            </v-btn>
+            <v-btn
+              outline
+              color="primary"
+              @click.stop="showConfirmDialog=false"
+            >
+              Close
+            </v-btn>
+          </v-layout>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -119,7 +161,13 @@ export default Vue.extend({
   data() {
     return {
       showConfirmDialog: false,
+      showExportMenu: false,
+      showImportMenu: false,
       selectedRepo: null,
+      exportString: '',
+      importString: '',
+      importError: '',
+      copySuccess: '',
     };
   },
   computed: {
@@ -139,10 +187,36 @@ export default Vue.extend({
       }
       this.showConfirmDialog = false;
     },
+    importStart() {
+      try {
+        const watchList = JSON.parse(this.importString);
+        this.importWatchList(watchList);
+        this.showImportMenu = false;
+        this.importString = '';
+        this.importError = '';
+      } catch (e) {
+        this.importError = 'Failed to import!';
+      }
+    },
+    exportWatchList() {
+      this.copySuccess = '';
+      const watchList = localStorage.getItem('watchList');
+      if (watchList) {
+        this.exportString = watchList;
+        const el: HTMLInputElement = this.$refs
+          .exportString as HTMLInputElement;
+        setTimeout(() => el.select(), 100);
+      }
+    },
+    copyToClipboard() {
+      this.$clipboard(this.exportString);
+      this.copySuccess = 'Copied to clipboard';
+    },
     ...mapActions([
       'clearAllLabels',
       'clearAllWatchList',
       'clearLabelFromRepo',
+      'importWatchList',
     ]),
   },
 });
@@ -151,5 +225,13 @@ export default Vue.extend({
 <style scoped>
 .empty-list {
   margin-top: 2rem;
+}
+.export-string {
+  width: 14rem;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

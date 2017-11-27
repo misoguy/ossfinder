@@ -4,12 +4,14 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import { sync } from 'vuex-router-sync';
 import VueAnalytics from 'vue-analytics';
+import Clipboard from 'v-clipboard';
 
 import App from './App.vue';
 import router from './router';
 import store from './vuex/store';
 
 Vue.use(Vuetify);
+Vue.use(Clipboard);
 Vue.config.productionTip = false;
 
 sync(store, router);
