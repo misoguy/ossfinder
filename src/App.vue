@@ -9,13 +9,13 @@
       </router-link>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat color="teal" exact to="/">Home</v-btn>
+        <v-btn flat :color="topNavColor" exact to="/">Home</v-btn>
         <template v-if="me">
-          <v-btn flat color="teal" to="/repositories">Repositories</v-btn>
-          <v-btn flat color="teal" to="/issues">Issues</v-btn>
-          <v-btn flat color="teal" @click.stop="logoutDialog = true">Logout</v-btn>
+          <v-btn flat :color="topNavColor" to="/repositories">Repositories</v-btn>
+          <v-btn flat :color="topNavColor" to="/issues">Issues</v-btn>
+          <v-btn flat :color="topNavColor" @click.stop="logoutDialog = true">Logout</v-btn>
         </template>
-        <v-btn v-else flat color="teal" to="/login">Login</v-btn>
+        <v-btn v-else flat :color="topNavColor" to="/login">Login</v-btn>
       </v-toolbar-items>
       <v-toolbar-items>
         <a
@@ -39,25 +39,25 @@
       :active="currentPath"
       color="white"
     >
-      <v-btn flat color="teal" value="/" exact to="/">
+      <v-btn flat :color="bottomNavColor" value="/" exact to="/">
         <span>Home</span>
         <v-icon>home</v-icon>
       </v-btn>
       <template v-if="me">
-        <v-btn flat color="teal" value="/repositories" to="/repositories">
+        <v-btn flat :color="bottomNavColor" value="/repositories" to="/repositories">
           <span>Repos</span>
           <v-icon>developer_mode</v-icon>
         </v-btn>
-        <v-btn flat color="teal" value="/issues" to="/issues">
+        <v-btn flat :color="bottomNavColor" value="/issues" to="/issues">
           <span>Issues</span>
           <v-icon>list</v-icon>
         </v-btn>
-        <v-btn flat color="teal" @click.stop="logoutDialog = true">
+        <v-btn flat :color="bottomNavColor" @click.stop="logoutDialog = true">
           <span>Logout</span>
           <v-icon>launch</v-icon>
         </v-btn>
       </template>
-      <v-btn v-else flat color="teal" value="/login" to="/login">
+      <v-btn v-else flat :color="bottomNavColor" value="/login" to="/login">
         <span>Login</span>
         <v-icon>input</v-icon>
       </v-btn>
@@ -103,6 +103,8 @@ export default Vue.extend({
   data() {
     return {
       logoutDialog: false,
+      topNavColor: 'secondary',
+      bottomNavColor: 'teal',
     };
   },
   computed: {
@@ -134,7 +136,7 @@ export default Vue.extend({
   justify-content: center;
   padding-left: 16px;
 }
-.fork img{
+.fork img {
   height: 30px;
 }
 </style>
