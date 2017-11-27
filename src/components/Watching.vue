@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout justify-end>
+    <v-layout justify-center>
       <v-menu
         offset-y
         bottom
