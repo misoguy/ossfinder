@@ -17,7 +17,7 @@ query RepositoryLabels ($owner:String!, $name:String!, $after:String) {
 			nodes {
 				...label
 			}
-		}    
+		}
   }
 }
 `;

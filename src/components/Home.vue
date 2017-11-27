@@ -32,41 +32,44 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  h1, h2, h3 {
-    text-align: center;
-    font-weight: 400;
+h1,
+h2,
+h3 {
+  text-align: center;
+  font-weight: 400;
+}
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  margin: 1rem 0 1rem;
+  font-size: 1rem;
+}
+.title {
+  padding: 2rem 1rem 0rem;
+  background: white;
+}
+.contribute {
+  padding: 3rem 1rem;
+  background: linear-gradient(to bottom, #ffffff, #607d8b);
+}
+.github-icon {
+  margin-right: 1rem;
+}
+@media screen and (min-width: 600px) {
+  h1,
+  h2 {
+    font-weight: 300;
   }
   h1 {
-    font-size: 2rem;
+    font-size: 3rem;
   }
   h2 {
-    margin: 1rem 0 1rem;
-    font-size: 1rem;
+    margin: 1rem 0 3rem;
+    font-size: 2rem;
   }
   .title {
-    padding: 2rem 1rem 0rem;
-    background: white;
+    padding: 5rem 1rem 0rem;
   }
-  .contribute {
-    padding: 3rem 1rem;
-    background: linear-gradient(to bottom, #ffffff, #607d8b);
-  }
-  .github-icon {
-    margin-right: 1rem;
-  }
-  @media screen and (min-width: 600px) {
-    h1, h2 {
-      font-weight: 300;
-    }
-    h1 {
-      font-size: 3rem;
-    }
-    h2 {
-      margin: 1rem 0 3rem;
-      font-size: 2rem;
-    }
-    .title {
-      padding: 5rem 1rem 0rem;
-    }
-  }
+}
 </style>

@@ -5,7 +5,7 @@ export interface IPageInfo {
   startCursor: string;
 }
 
-export interface IRepository{
+export interface IRepository {
   id: string;
   nameWithOwner: string;
   url: string;

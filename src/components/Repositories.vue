@@ -50,15 +50,12 @@ import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'Repositories',
-  computed: mapGetters([
-    'me',
-    'watchListCount',
-  ]),
+  computed: mapGetters(['me', 'watchListCount']),
 });
 </script>
 
 <style scoped>
-  .label {
-    margin-right: 0.3rem;
-  }
+.label {
+  margin-right: 0.3rem;
+}
 </style>

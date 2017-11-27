@@ -1,6 +1,6 @@
 // tslint:disable:max-line-length
 interface IQualifiers {
-  [key:string]: string | boolean | Comparator | void;
+  [key: string]: string | boolean | IComparator | void;
   /**
    * The in qualifier limits what fields are searched.
    * With this qualifier you can restrict the search to just the repository name, description, README, or any combination of these.
@@ -10,7 +10,7 @@ interface IQualifiers {
   /**
    * The size qualifier finds repositories that match a certain size (in kilobytes), using greater than, less than, and range qualifiers.
    */
-  size?: Comparator;
+  size?: IComparator;
   /**
    * You can filter your search based on whether a repository is private or public.
    */
@@ -26,14 +26,14 @@ interface IQualifiers {
   /**
    * The forks qualifier specifies the number of forks a repository should have, using greater than, less than, and range qualifiers.
    */
-  forks?: Comparator;
+  forks?: IComparator;
   /**
    * You can filter repositories based on time of creation or time of last update. For repository creation, you can use the created qualifier; to find out when a repository was last updated, you'll want to use the pushed qualifier. The pushed qualifier will return a list of repositories, sorted by the most recent commit made on any branch in the repository.
-   * 
+   *
    * Both take a date as a parameter. Date formatting must follow the ISO8601 standard, which is YYYY-MM-DD (year-month-day). You can also add optional time information THH:MM:SS+00:00 after the date, to search by the hour, minute, and second. That's T, followed by HH:MM:SS (hour-minutes-seconds), and a UTC offset (+00:00).
    */
-  created?: Comparator; // YYYY-MM-DD
-  pushed?: Comparator; // YYYY-MM-DD
+  created?: IComparator; // YYYY-MM-DD
+  pushed?: IComparator; // YYYY-MM-DD
   /**
    * To grab a list of a user's or organization's repositories, you can use the user or org qualifier.
    */
@@ -46,7 +46,7 @@ interface IQualifiers {
   /**
    * You can find repositories by the number of applied topics, using the topics qualifier along with greater than, less than, and range qualifiers.
    */
-  topics?: Comparator;
+  topics?: IComparator;
   /**
    * You can search repositories by their license. You must use a license keyword to filter repositories by a particular license or license family.
    */
@@ -58,21 +58,25 @@ interface IQualifiers {
   /**
    * You can search repositories based on the number of stars a repository has, using greater than, less than, and range qualifiers
    */
-  stars?: Comparator;
+  stars?: IComparator;
   sort?: string;
 }
 
-type Comparator = {
-  value: string | { start: '*' | number, end: '*' | number };
+interface IComparator {
+  value: string | { start: '*' | number; end: '*' | number };
   operation: 'eq' | 'lt' | 'lte' | 'gt' | 'gte';
-};
+}
 
 const addAllComparator = (query: string, qualifiers: IQualifiers): string => {
   let result = query;
-  Object.keys(qualifiers).forEach((qualifierKey) => {
+  Object.keys(qualifiers).forEach(qualifierKey => {
     const qualifier = qualifiers[qualifierKey];
     if (typeof qualifier === 'object') {
-      result = addComparatorQualifier(result, qualifierKey, (<Comparator>qualifier));
+      result = addComparatorQualifier(
+        result,
+        qualifierKey,
+        qualifier as IComparator
+      );
     } else {
       if (qualifier && qualifier.toString().trim() !== '') {
         result += ` ${qualifierKey}:${qualifier}`;
@@ -82,7 +86,11 @@ const addAllComparator = (query: string, qualifiers: IQualifiers): string => {
   return result;
 };
 
-const addComparatorQualifier = (query: string, qualifier:string, comparator:Comparator):string => {
+const addComparatorQualifier = (
+  query: string,
+  qualifier: string,
+  comparator: IComparator
+): string => {
   let result = query;
   if (typeof comparator.value === 'object') {
     const { start, end } = comparator.value;
@@ -100,7 +108,7 @@ const addComparatorQualifier = (query: string, qualifier:string, comparator:Comp
         break;
       case 'lte':
         result += ` ${qualifier}:<=${comparator.value}`;
-        break;      
+        break;
       default:
         result += ` ${qualifier}:${comparator.value}`;
         break;
@@ -109,7 +117,7 @@ const addComparatorQualifier = (query: string, qualifier:string, comparator:Comp
   return result;
 };
 
-const builder = (query: string, qualifiers?:IQualifiers): string => {
+const builder = (query: string, qualifiers?: IQualifiers): string => {
   if (!qualifiers) {
     return query;
   }

@@ -108,7 +108,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { isEmpty } from 'lodash';
-import { WatchListState } from '../vuex/modules/watchList';
+import { IWatchListState } from '../vuex/modules/watchList';
 import Label from './Label.vue';
 
 export default Vue.extend({
@@ -123,7 +123,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    watchList(): WatchListState {
+    watchList(): IWatchListState {
       return this.$store.getters.watchList;
     },
     isListEmpty(): boolean {
@@ -139,13 +139,17 @@ export default Vue.extend({
       }
       this.showConfirmDialog = false;
     },
-    ...mapActions(['clearAllLabels', 'clearAllWatchList', 'clearLabelFromRepo']),
+    ...mapActions([
+      'clearAllLabels',
+      'clearAllWatchList',
+      'clearLabelFromRepo',
+    ]),
   },
 });
 </script>
 
 <style scoped>
-  .empty-list {
-    margin-top: 2rem;
-  }
+.empty-list {
+  margin-top: 2rem;
+}
 </style>

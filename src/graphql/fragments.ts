@@ -14,7 +14,7 @@ export default {
     fragment label on Label {
       id
       name
-      color  
+      color
     }
   `,
   repository: gql`

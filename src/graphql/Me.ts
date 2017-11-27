@@ -4,8 +4,8 @@ import fragments from './fragments';
 export default gql`
 ${fragments.repository}
 ${fragments.label}
-query Me($after:String) { 
-  viewer { 
+query Me($after:String) {
+  viewer {
     login
     name
     avatarUrl

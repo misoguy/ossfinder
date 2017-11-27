@@ -56,15 +56,15 @@ import client from '@/apolloClient';
 
 import RepositoryCard from './RepositoryCard.vue';
 
-type Data = {
-  isLoading: boolean,
-  repoName: string,
-  searchText: string,
-  languages: any[],
-  filters: any,
-  qualifiers: any,
-  repositories: any,
-};
+interface IData {
+  isLoading: boolean;
+  repoName: string;
+  searchText: string;
+  languages: any[];
+  filters: any;
+  qualifiers: any;
+  repositories: any;
+}
 
 export default Vue.extend({
   name: 'Search',
@@ -75,7 +75,7 @@ export default Vue.extend({
   mounted() {
     this.searchRepos();
   },
-  data(): Data {
+  data(): IData {
     return {
       isLoading: true,
       repoName: '',
@@ -109,34 +109,40 @@ export default Vue.extend({
       this.repoName = this.searchText;
       this.qualifiers = this.filters;
       this.isLoading = true;
-      client.query({
-        query: SearchRepositories,
-        variables: {
-          q: this.q,
-        },
-      }).then(({ data }:{data:any}) => {
-        this.repositories.nodes = data.search.nodes;
-        this.repositories.pageInfo = data.search.pageInfo;
-        this.isLoading = false;
-      });
-    },
-    infiniteHandler($state: any) {
-      if (this.repositories.pageInfo.hasNextPage) {
-        client.query({
+      client
+        .query({
           query: SearchRepositories,
           variables: {
             q: this.q,
-            after: this.repositories.pageInfo.endCursor,
           },
-        }).then(({ data }:{data:any}) => {
-          this.repositories.nodes = this.repositories.nodes.concat(data.search.nodes);
+        })
+        .then(({ data }: { data: any }) => {
+          this.repositories.nodes = data.search.nodes;
           this.repositories.pageInfo = data.search.pageInfo;
-          const hasNextPage = data.search.pageInfo.hasNextPage;
-          $state.loaded();
-          if (!hasNextPage) {
-            $state.complete();
-          }
+          this.isLoading = false;
         });
+    },
+    infiniteHandler($state: any) {
+      if (this.repositories.pageInfo.hasNextPage) {
+        client
+          .query({
+            query: SearchRepositories,
+            variables: {
+              q: this.q,
+              after: this.repositories.pageInfo.endCursor,
+            },
+          })
+          .then(({ data }: { data: any }) => {
+            this.repositories.nodes = this.repositories.nodes.concat(
+              data.search.nodes
+            );
+            this.repositories.pageInfo = data.search.pageInfo;
+            const hasNextPage = data.search.pageInfo.hasNextPage;
+            $state.loaded();
+            if (!hasNextPage) {
+              $state.complete();
+            }
+          });
       } else {
         $state.loaded();
         $state.complete();

@@ -2,25 +2,25 @@ import Vue from 'vue';
 import { Getter, Action, Mutation, ActionContext } from 'vuex';
 import { xorBy } from 'lodash';
 import * as types from '../mutation-types';
-import { IRepository, ILabel } from '../interfaces';
-import { RootState } from '../store';
+import { ILabel, IRepository } from '../interfaces';
+import { IRootState } from '../store';
 
-export type WatchListState = {
+export interface IWatchListState {
   [repoNameWithOwner: string]: {
-    repo: IRepository,
-    labels: ILabel[],
-  },
-};
+    repo: IRepository;
+    labels: ILabel[];
+  };
+}
 
 const watchList = localStorage.getItem('watchList');
 const initialState = watchList ? JSON.parse(watchList) : {};
 
 const getters = {
-  watchList: (state: WatchListState) => state,
-  watchListCount: (state: WatchListState) => Object.keys(state).length,
+  watchList: (state: IWatchListState) => state,
+  watchListCount: (state: IWatchListState) => Object.keys(state).length,
 };
 
-const actions:{[key: string]: Action<WatchListState, RootState>} = {
+const actions: { [key: string]: Action<IWatchListState, IRootState> } = {
   toggleWatchRepoLabel({ commit }, { repo, label }) {
     commit(types.TOGGLE_WATCH_REPO_LABEL, { repo, label });
   },
@@ -35,7 +35,7 @@ const actions:{[key: string]: Action<WatchListState, RootState>} = {
   },
 };
 
-const mutations:{[key: string]: Mutation<WatchListState>} = {
+const mutations: { [key: string]: Mutation<IWatchListState> } = {
   [types.TOGGLE_WATCH_REPO_LABEL](state, { repo, label }) {
     if (!state[repo.nameWithOwner]) {
       Vue.set(state, repo.nameWithOwner, { repo, labels: [label] });
@@ -51,7 +51,9 @@ const mutations:{[key: string]: Mutation<WatchListState>} = {
     localStorage.setItem('watchList', JSON.stringify(state));
   },
   [types.CLEAR_LABEL_FROM_REPO](state, { repoNameWithOwner, label }) {
-    const labels = state[repoNameWithOwner].labels.filter(l => l.id !== label.id);
+    const labels = state[repoNameWithOwner].labels.filter(
+      l => l.id !== label.id
+    );
     if (labels.length < 1) {
       Vue.delete(state, repoNameWithOwner);
     } else {
@@ -64,7 +66,7 @@ const mutations:{[key: string]: Mutation<WatchListState>} = {
     localStorage.setItem('watchList', JSON.stringify(state));
   },
   [types.CLEAR_ALL_WATCH_LIST](state) {
-    Object.keys(state).forEach((repoNameWithOwner) => {
+    Object.keys(state).forEach(repoNameWithOwner => {
       Vue.delete(state, repoNameWithOwner);
     });
     localStorage.setItem('watchList', JSON.stringify(state));

@@ -29,11 +29,9 @@ export default Vue.extend({
     repoCard: RepositoryCard,
     InfiniteLoading,
   },
-  computed: mapGetters([
-    'me',
-  ]),
+  computed: mapGetters(['me']),
   methods: {
-    infiniteHandler($state: {loaded: Function, complete: Function}) {
+    infiniteHandler($state: { loaded: () => void; complete: () => void }) {
       if (this.me.starredRepositories.pageInfo.hasNextPage) {
         const { endCursor } = this.me.starredRepositories.pageInfo;
         this.loadMoreStarredRepos(endCursor).then((pageInfo: IPageInfo) => {

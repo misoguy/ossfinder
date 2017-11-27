@@ -20,7 +20,7 @@ query RepositoryIssues ($owner:String!, $name:String!, $labels:[String!]) {
 					totalCount
 				}
 			}
-		}    
+		}
   }
 }
 `;

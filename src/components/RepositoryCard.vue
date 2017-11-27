@@ -170,34 +170,38 @@ export default Vue.extend({
       if (!color) {
         return '#ffffff';
       }
-      const rgb = color.substr(1,6);
+      const rgb = color.substr(1, 6);
       const r = parseInt(rgb.substr(0, 2), 16);
       const g = parseInt(rgb.substr(2, 2), 16);
       const b = parseInt(rgb.substr(4, 2), 16);
-      const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-      return (yiq >= 128) ? '#333333' : '#ffffff';
+      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? '#333333' : '#ffffff';
     },
     toggleRepoStar(isStarred: boolean) {
       if (isStarred) {
-        client.mutate({
-          mutation: UnstarRepository,
-          variables: {
-            repoId: this.repo.id,
-          },
-        }).then(() => {
-          this.repo.viewerHasStarred = false;
-          this.repo.stargazers.totalCount -= 1;
-        });
+        client
+          .mutate({
+            mutation: UnstarRepository,
+            variables: {
+              repoId: this.repo.id,
+            },
+          })
+          .then(() => {
+            this.repo.viewerHasStarred = false;
+            this.repo.stargazers.totalCount -= 1;
+          });
       } else {
-        client.mutate({
-          mutation: StarRepository,
-          variables: {
-            repoId: this.repo.id,
-          },
-        }).then(() => {
-          this.repo.viewerHasStarred = true;
-          this.repo.stargazers.totalCount += 1;
-        });
+        client
+          .mutate({
+            mutation: StarRepository,
+            variables: {
+              repoId: this.repo.id,
+            },
+          })
+          .then(() => {
+            this.repo.viewerHasStarred = true;
+            this.repo.stargazers.totalCount += 1;
+          });
       }
     },
     loadMoreRepoLabels() {
@@ -207,43 +211,42 @@ export default Vue.extend({
         name: repoName,
         after: this.repo.labels.pageInfo.endCursor,
       };
-      client.query({
-        query: RepositoryLabels,
-        variables,
-      }).then(({ data }: { data: any }) => {
-        const { nodes, pageInfo } = data.repository.labels;
-        this.repo.labels.nodes = this.repo.labels.nodes.concat(nodes);
-        this.repo.labels.pageInfo = pageInfo;
-      });
+      client
+        .query({
+          query: RepositoryLabels,
+          variables,
+        })
+        .then(({ data }: { data: any }) => {
+          const { nodes, pageInfo } = data.repository.labels;
+          this.repo.labels.nodes = this.repo.labels.nodes.concat(nodes);
+          this.repo.labels.pageInfo = pageInfo;
+        });
     },
-    ...mapActions([
-      'toggleWatchRepoLabel',
-      'clearAllLabels',
-    ]),
+    ...mapActions(['toggleWatchRepoLabel', 'clearAllLabels']),
   },
 });
 </script>
 
 <style scoped>
-  .star-btn {
-    margin: 6px 8px;
-    display: flex;
-    align-items: center;
-  }
-  .star-btn i {
-    font-size: 1.2rem;
-    margin-right: 0.3rem;
-  }
-  .label-list {
-    margin: -4px -5px !important
-  }
-  .language-label {
-    display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-    padding: 0.2rem 0.5rem;
-    margin: 6px 0px;
-    border-radius: 4px;
-    font-weight: 600;
-  }
+.star-btn {
+  margin: 6px 8px;
+  display: flex;
+  align-items: center;
+}
+.star-btn i {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+}
+.label-list {
+  margin: -4px -5px !important;
+}
+.language-label {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  margin: 6px 0px;
+  border-radius: 4px;
+  font-weight: 600;
+}
 </style>
