@@ -17,6 +17,15 @@
         </template>
         <v-btn v-else flat color="teal" to="/login">Login</v-btn>
       </v-toolbar-items>
+      <v-toolbar-items>
+        <a
+          class="fork"
+          href="https://github.com/misoguy/ossfinder"
+          target="_blank"
+        >
+          <img src="./assets/GitHub-black.png" />
+        </a>
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-content>
@@ -117,5 +126,15 @@ export default Vue.extend({
 }
 .logo img {
   height: 100%;
+}
+.fork {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+}
+.fork img{
+  height: 30px;
 }
 </style>
