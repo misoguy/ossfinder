@@ -19,10 +19,10 @@ Vue.use(VueAnalytics, {
   router,
 });
 
+// tslint:disable-next-line:no-unused-expression
 new Vue({
   el: '#app',
   router,
   store,
-  template: '<App/>',
-  components: { App },
+  render: h => h(App),
 });

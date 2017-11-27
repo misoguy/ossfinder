@@ -14,16 +14,24 @@ export default {
     fragment label on Label {
       id
       name
-      color  
+      color
     }
   `,
   repository: gql`
     fragment repository on Repository {
-      name
+      id
       nameWithOwner
       url
-      description
       descriptionHTML
+      viewerHasStarred
+      stargazers {
+        totalCount
+      }
+      primaryLanguage {
+        id
+        name
+        color
+      }
     }
   `,
 };

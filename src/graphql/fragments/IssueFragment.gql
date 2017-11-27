@@ -1,7 +1,0 @@
-fragment issue on Issue {
-  id
-  title
-  url
-  bodyHTML
-  createdAt
-}

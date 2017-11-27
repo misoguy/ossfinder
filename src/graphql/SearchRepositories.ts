@@ -4,19 +4,16 @@ import fragments from './fragments';
 export default gql`
 ${fragments.repository}
 ${fragments.label}
-query Me($after:String) {
-  viewer {
-    login
-    name
-    avatarUrl
-    starredRepositories(first: 10 after:$after) {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-      nodes {
+query SearchRepositories($q: String!, $after: String) {
+  search(type: REPOSITORY query: $q first: 10 after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    nodes {
+      ... on Repository {
         ...repository
         labels(first: 10) {
           pageInfo {

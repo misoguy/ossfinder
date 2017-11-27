@@ -1,7 +1,0 @@
-fragment repository on Repository {
-  name
-  nameWithOwner
-  url
-  description
-  descriptionHTML
-}

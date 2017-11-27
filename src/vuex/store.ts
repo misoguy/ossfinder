@@ -5,9 +5,17 @@ import Vuex from 'vuex';
 import getters from './getters';
 import modules from './modules';
 
+import { IIssuesState } from './modules/issues';
+import { IMeState } from './modules/me';
+import { IWatchListState } from './modules/watchList';
+
 Vue.use(Vuex);
 
-export type RootState = {};
+export interface IRootState {
+  issues: IIssuesState;
+  me: IMeState;
+  watchList: IWatchListState;
+}
 
 export default new Vuex.Store({
   // actions,

@@ -22,13 +22,14 @@ module.exports = {
     '<rootDir>/test/e2e',
   ],
   snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue'],
-  setupFiles: ['<rootDir>/test/unit/setup'],
+  setupFiles: ['<rootDir>/test/unit/setup', 'jest-localstorage-mock'],
   mapCoverage: true,
   coverageDirectory: '<rootDir>/test/unit/coverage',
   collectCoverageFrom: [
-    'src/**/*.{js,vue}',
-    '!src/main.ts',
-    '!src/router/index.ts',
+    '!src/typings.d.ts',
+    'src/**/*.{ts,js,vue}',
+    // '!src/main.ts',
+    // '!src/router/index.ts',
     '!**/node_modules/**',
   ],
 };

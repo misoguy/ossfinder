@@ -7,6 +7,7 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
+            autofocus
             label="Personal access tokens"
             placeholder="Enter Personal access tokens"
             v-model="token"
@@ -57,7 +58,7 @@ export default Vue.extend({
   methods: {
     login() {
       this.$store.dispatch('login', this.token).then(() => {
-        this.$router.push('profile');
+        this.$router.push('repositories');
       });
     },
   },
@@ -65,12 +66,12 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  h6 {
-    text-align: center;
-  }
+h6 {
+  text-align: center;
+}
 
-  img {
-    width: 1.4rem;
-    margin-right: 0.5rem;
-  }
+img {
+  width: 1.4rem;
+  margin-right: 0.5rem;
+}
 </style>

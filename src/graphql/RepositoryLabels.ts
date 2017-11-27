@@ -2,7 +2,9 @@ import gql from 'graphql-tag';
 import fragments from './fragments';
 
 export default gql`
-query RepositoryLabels ($owner:String!, $name:String!, $after:String!) {
+${fragments.repository}
+${fragments.label}
+query RepositoryLabels ($owner:String!, $name:String!, $after:String) {
 	repository(owner:$owner name:$name) {
     ...repository
 		labels(first: 10 after:$after) {
@@ -15,9 +17,7 @@ query RepositoryLabels ($owner:String!, $name:String!, $after:String!) {
 			nodes {
 				...label
 			}
-		}    
+		}
   }
 }
-${fragments.repository}
-${fragments.label}
 `;

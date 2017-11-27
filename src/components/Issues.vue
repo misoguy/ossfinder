@@ -9,7 +9,7 @@
         <p>
           It seems like there are no issues regarding your watch list.
         </p>
-        <v-btn to="/profile">Add more repositories to watch</v-btn>
+        <v-btn to="/repositories">Add more repositories to watch</v-btn>
       </v-flex>
       <v-flex
         v-else
@@ -92,23 +92,21 @@ export default Vue.extend({
     this.getIssueList(this.watchList);
   },
   data() {
-    const showDescription:IDescription = {};
+    const showDescription: IDescription = {};
     return {
       showDescription,
     };
   },
   computed: {
-    ...mapGetters([
-      'me',
-      'issues',
-      'isFetchingIssues',
-      'watchList',
-    ]),
+    ...mapGetters(['me', 'issues', 'isFetchingIssues', 'watchList']),
   },
   methods: {
     toggleDescription(issueId: string) {
-      this.showDescription[issueId] =
-        Vue.set(this.showDescription, issueId, !this.showDescription[issueId]);
+      this.showDescription[issueId] = Vue.set(
+        this.showDescription,
+        issueId,
+        !this.showDescription[issueId]
+      );
     },
     ...mapActions(['getIssueList']),
   },
@@ -116,16 +114,17 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  .progress-linear {
-    margin: 0;
-  }
-  .issue-info {
-    display: flex;
-    align-items: center;
-    margin: 0.2rem 0 0.5rem
-  }
-  .created-at, .total-comments {
-    margin-left: 0.2rem;
-    margin-right: 1rem;
-  }
+.progress-linear {
+  margin: 0;
+}
+.issue-info {
+  display: flex;
+  align-items: center;
+  margin: 0.2rem 0 0.5rem;
+}
+.created-at,
+.total-comments {
+  margin-left: 0.2rem;
+  margin-right: 1rem;
+}
 </style>

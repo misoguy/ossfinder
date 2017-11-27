@@ -1,41 +1,43 @@
 import Vue from 'vue';
 import client from '@/apolloClient';
 import { Getter, Action, Mutation } from 'vuex';
-// import Me from '@/graphql/Me.gql';
 import Me from '@/graphql/Me';
-// import RepositoryLabels from '@/graphql/RepositoryLabels.gql';
 import RepositoryLabels from '@/graphql/RepositoryLabels';
 import router from '@/router';
-import * as types from '../mutation-types';
-import { RootState } from '../store';
 
-type MeState = {
-  isLoggingIn: boolean,
-  data: any,
-};
+import * as types from '../mutation-types';
+import { IRootState } from '../store';
+
+export interface IMeState {
+  isLoggingIn: boolean;
+  data: any;
+}
 
 const initialState = {
   isLoggingIn: false,
   data: null,
 };
 
-const getters:{[key: string]: Getter<MeState, RootState>} = {
+const getters: { [key: string]: Getter<IMeState, IRootState> } = {
   isLoggingIn: state => state.isLoggingIn,
   me: state => state.data,
 };
 
-const actions:{[key: string]: Action<MeState, RootState>} = {
+const actions: { [key: string]: Action<IMeState, IRootState> } = {
   login({ commit }, token) {
     commit(types.LOGIN);
     localStorage.setItem('token', token);
-    return client.query({ query: Me }).then(({ data }:{data: any}) => {
-      commit(types.LOGIN_SUCCESS, data);
-    }).catch(() => {
-      router.push('/');
-      /* eslint-disable no-alert */
-      alert('Token is invalid');
-      commit(types.LOGIN_FAIL);
-    });
+    return client
+      .query({ query: Me })
+      .then(({ data }: { data: any }) => {
+        commit(types.LOGIN_SUCCESS, data);
+      })
+      .catch(() => {
+        router.push('/');
+        /* eslint-disable no-alert */
+        alert('Token is invalid');
+        commit(types.LOGIN_FAIL);
+      });
   },
   logout({ commit }) {
     commit(types.LOGOUT);
@@ -47,20 +49,23 @@ const actions:{[key: string]: Action<MeState, RootState>} = {
       name: repoName,
       after: endCursor,
     };
-    return client.query({ query: RepositoryLabels, variables }).then(({ data }:{data: any}) => {
-      commit(types.LOAD_MORE_LABELS, data);
-    });
+    return client
+      .query({ query: RepositoryLabels, variables })
+      .then(({ data }: { data: any }) => {
+        commit(types.LOAD_MORE_LABELS, data);
+      });
   },
   loadMoreStarredRepos({ commit }, endCursor) {
-    return client.query({ query: Me, variables: { after: endCursor } })
-      .then(({ data }:{data: any}) => {
+    return client
+      .query({ query: Me, variables: { after: endCursor } })
+      .then(({ data }: { data: any }) => {
         commit(types.LOAD_MORE_STARRED_REPOS, data);
         return data.viewer.starredRepositories.pageInfo;
       });
   },
 };
 
-const mutations:{[key: string]: Mutation<MeState>} = {
+const mutations: { [key: string]: Mutation<IMeState> } = {
   [types.LOGIN](state) {
     state.isLoggingIn = true;
   },
@@ -79,7 +84,7 @@ const mutations:{[key: string]: Mutation<MeState>} = {
     state.isLoggingIn = false;
   },
   [types.LOAD_MORE_LABELS](state, data) {
-    const newNodes = state.data.starredRepositories.nodes.map((repo:any) => {
+    const newNodes = state.data.starredRepositories.nodes.map((repo: any) => {
       if (repo.nameWithOwner === data.repository.nameWithOwner) {
         return {
           ...data.repository,
@@ -92,26 +97,24 @@ const mutations:{[key: string]: Mutation<MeState>} = {
       return repo;
     });
 
-    Vue.set(
-      state,
-      'data',
-      {
-        ...state.data,
-        starredRepositories: { ...state.data.starredRepositories, nodes: newNodes },
+    Vue.set(state, 'data', {
+      ...state.data,
+      starredRepositories: {
+        ...state.data.starredRepositories,
+        nodes: newNodes,
       },
-    );
+    });
   },
   [types.LOAD_MORE_STARRED_REPOS](state, data) {
-    Vue.set(
-      state, 'data',
-      {
-        ...state.data,
-        starredRepositories: {
-          ...data.viewer.starredRepositories,
-          nodes: state.data.starredRepositories.nodes.concat(data.viewer.starredRepositories.nodes),
-        },
+    Vue.set(state, 'data', {
+      ...state.data,
+      starredRepositories: {
+        ...data.viewer.starredRepositories,
+        nodes: state.data.starredRepositories.nodes.concat(
+          data.viewer.starredRepositories.nodes
+        ),
       },
-    );
+    });
   },
 };
 

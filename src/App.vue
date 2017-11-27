@@ -11,7 +11,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat color="teal" exact to="/">Home</v-btn>
         <template v-if="me">
-          <v-btn flat color="teal" to="/profile">Profile</v-btn>
+          <v-btn flat color="teal" to="/repositories">Repositories</v-btn>
           <v-btn flat color="teal" to="/issues">Issues</v-btn>
           <v-btn flat color="teal" @click.stop="logoutDialog = true">Logout</v-btn>
         </template>
@@ -35,9 +35,9 @@
         <v-icon>home</v-icon>
       </v-btn>
       <template v-if="me">
-        <v-btn flat color="teal" value="/profile" to="/profile">
-          <span>Profile</span>
-          <v-icon>account_circle</v-icon>
+        <v-btn flat color="teal" value="/repositories" to="/repositories">
+          <span>Repos</span>
+          <v-icon>developer_mode</v-icon>
         </v-btn>
         <v-btn flat color="teal" value="/issues" to="/issues">
           <span>Issues</span>
@@ -97,10 +97,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters([
-      'me',
-      'currentPath',
-    ]),
+    ...mapGetters(['me', 'currentPath']),
   },
   methods: {
     logout() {
@@ -114,11 +111,11 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  .logo {
-    height: 100%;
-    padding: 0.8rem 0;
-  }
-  .logo img {
-    height: 100%;
-  }
+.logo {
+  height: 100%;
+  padding: 0.8rem 0;
+}
+.logo img {
+  height: 100%;
+}
 </style>
