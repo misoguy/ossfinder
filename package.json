@@ -7,13 +7,13 @@
   "scripts": {
     "dev":
       "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "start": "yarn run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
+    "test": "yarn run unit && yarn run e2e",
     "lint": "tslint -p . -t codeFrame",
     "build": "node build/build.js",
-    "deploy": "npm run test && npm run build",
+    "deploy": "yarn run unit && yarn run build",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -109,7 +109,7 @@
   },
   "engines": {
     "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "yarn": ">= 3.0.0"
   },
   "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }

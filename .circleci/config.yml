@@ -29,14 +29,3 @@ jobs:
         
       # run tests!
       - run: yarn test
-
-      # run build!
-      - run: yarn build
-
-      # deploy!
-      - deploy:
-          name: Deploy Master to Netlify
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn deploy
-            fi
