@@ -6000,6 +6000,10 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+netlify-auth-providers@^1.0.0-alpha5:
+  version "1.0.0-alpha5"
+  resolved "https://registry.yarnpkg.com/netlify-auth-providers/-/netlify-auth-providers-1.0.0-alpha5.tgz#f0ce642fe5534f04a1d539ca847c907dd20819c8"
+
 netlify-cli@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-1.2.2.tgz#e2719952bcd4a698fa75616ab003e111541207e0"

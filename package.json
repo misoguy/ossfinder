@@ -28,6 +28,7 @@
     "graphql": "^0.11.7",
     "graphql-tag": "^2.5.0",
     "lodash": "^4.17.4",
+    "netlify-auth-providers": "^1.0.0-alpha5",
     "v-clipboard": "^1.0.4",
     "vue": "^2.5.8",
     "vue-analytics": "^5.4.0",
