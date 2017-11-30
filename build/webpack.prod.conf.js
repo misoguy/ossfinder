@@ -122,6 +122,22 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
     new PWAWebpackPlugin({
       faviconImage: path.resolve(__dirname, '../src/assets/oss_icon.png'),
+      faviconConfig: {
+        appName: 'OSS Finder',
+        appDescription: 'Open Source Software Finder',
+        background: '#ffffff',
+        theme_color: '#000000',
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          firefox: false,
+          windows: false,
+          yandex: false,
+        },
+      },
     }),
   ],
 });
