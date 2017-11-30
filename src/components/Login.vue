@@ -11,7 +11,7 @@
                 color="secondary"
                 @click="githubLogin"
               >
-                <img src="../assets/GitHub.png" />
+                <img src="../assets/GitHub.png" alt="Github Login" />
                 GITHUB
               </v-btn>
             </v-flex>
@@ -36,8 +36,9 @@
                 outline
                 href="https://github.com/settings/tokens/new"
                 target="_blank"
+                rel="noopener"
               >
-                <img src="../assets/GitHub-black.png" />
+                <img src="../assets/GitHub-black.png" alt="Get Token" />
                 Get token from Github
               </v-btn>
               <v-layout row wrap justify-center align-center>

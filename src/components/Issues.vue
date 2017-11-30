@@ -21,12 +21,12 @@
           <v-card-title>
             <v-layout column>
               <h3>
-                <a :href="issue.repoUrl" target="_blank">
+                <a :href="issue.repoUrl" target="_blank" rel="noopener">
                   {{issue.repoNameWithOwner}}
                 </a>
               </h3>
               <span>
-                <a :href="issue.url" target="_blank">
+                <a :href="issue.url" target="_blank" rel="noopener">
                   {{issue.title}}
                 </a>
               </span>
@@ -59,7 +59,7 @@
             <v-card-text v-show="showDescription[issue.id]">
               <div v-html="issue.bodyHTML" />
               <v-layout row justify-center>
-                <v-btn block :href="issue.url" target="_blank">
+                <v-btn block :href="issue.url" target="_blank" rel="noopener">
                   TO GITHUB ISSUE
                 </v-btn>
                 <v-btn icon @click="toggleDescription(issue.id)">

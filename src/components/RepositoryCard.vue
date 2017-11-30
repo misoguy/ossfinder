@@ -34,7 +34,7 @@
             </button>
           </v-layout>
           <h3>
-            <a :href="repo.url" target="_blank">
+            <a :href="repo.url" target="_blank" rel="noopener">
               {{repo.nameWithOwner}}
             </a>
           </h3>

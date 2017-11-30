@@ -82,7 +82,7 @@
             </v-btn>
             <v-card-title>
               <h3>
-                <a :href="watch.repo.url" target="_blank">
+                <a :href="watch.repo.url" target="_blank" rel="noopener">
                   {{watch.repo.nameWithOwner}}
                 </a>
               </h3>

@@ -5,7 +5,7 @@
       fixed
     >
       <router-link class="logo" to="/">
-        <img src="./assets/title_logo.svg" />
+        <img src="./assets/title_logo.svg" alt="OSS Finder" />
       </router-link>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
@@ -22,8 +22,9 @@
           class="fork"
           href="https://github.com/misoguy/ossfinder"
           target="_blank"
+          rel="noopener"
         >
-          <img src="./assets/GitHub-black.png" />
+          <img src="./assets/GitHub-black.png" alt="Fork me on Github" />
         </a>
       </v-toolbar-items>
     </v-toolbar>
